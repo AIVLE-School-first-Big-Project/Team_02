@@ -1,22 +1,32 @@
 <!DOCTYPE HTML>
 {% load static %}
+
 <!--
 	Telephasic by HTML5 UP
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
+<style>
+	.pagination{display:inline-block;padding-left:0;margin:20px 0;border-radius:4px}.pagination>li{display:inline}.pagination>li>a,.pagination>li>span{position:relative;float:left;padding:6px 12px;margin-left:-1px;line-height:1.42857143;color:#337ab7;text-decoration:none;background-color:#fff;border:1px solid #ddd}.pagination>li>a:focus,.pagination>li>a:hover,.pagination>li>span:focus,.pagination>li>span:hover{z-index:2;color:#23527c;background-color:#eee;border-color:#ddd}.pagination>li:first-child>a,.pagination>li:first-child>span{margin-left:0;border-top-left-radius:4px;border-bottom-left-radius:4px}.pagination>li:last-child>a,.pagination>li:last-child>span{border-top-right-radius:4px;border-bottom-right-radius:4px}.pagination>.active>a,.pagination>.active>a:focus,.pagination>.active>a:hover,.pagination>.active>span,.pagination>.active>span:focus,.pagination>.active>span:hover{z-index:3;color:#fff;cursor:default;background-color:#337ab7;border-color:#337ab7}.pagination>.disabled>a,.pagination>.disabled>a:focus,.pagination>.disabled>a:hover,.pagination>.disabled>span,.pagination>.disabled>span:focus,.pagination>.disabled>span:hover{color:#777;cursor:not-allowed;background-color:#fff;border-color:#ddd}.pagination-lg>li>a,.pagination-lg>li>span{padding:10px 16px;font-size:18px;line-height:1.3333333}.pagination-lg>li:first-child>a,.pagination-lg>li:first-child>span{border-top-left-radius:6px;border-bottom-left-radius:6px}.pagination-lg>li:last-child>a,.pagination-lg>li:last-child>span{border-top-right-radius:6px;border-bottom-right-radius:6px}.pagination-sm>li>a,.pagination-sm>li>span{padding:5px 10px;font-size:12px;line-height:1.5}.pagination-sm>li:first-child>a,.pagination-sm>li:first-child>span{border-top-left-radius:3px;border-bottom-left-radius:3px}.pagination-sm>li:last-child>a,.pagination-sm>li:last-child>span{border-top-right-radius:3px;border-bottom-right-radius:3px}
+	.card-img2 {
+	  width: 275px;
+	  height: 275px;
+	  object-fit: cover;
+	  border-radius:calc(1rem - 1px);}
+  </style>
 <html>
 	<head>
 		<title>너나들이</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="{% static 'css/main.css' %}" />
+		<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+		<link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="{% static 'css/flexslider.css' %}" type="text/css">
+		<link href="{% static 'css/styles.css' %}" rel="stylesheet">
+		<link href="{% static 'css/queries.css' %}" rel="stylesheet">
+		<link href="{% static 'css/jquery.fancybox.css' %}" rel="stylesheet">
+		<link rel="stylesheet" href="{% static 'css/main.css' %}"/>
 	</head>
-	<body class="left-sidebar is-preload">
-		<div id="page-wrapper">
-
-		
-			<!-- Header -->
 			<div id="header-wrapper">
 				<div id="header" class="container">
 					<!-- Logo -->
@@ -40,15 +50,6 @@
 									<ul>
 										<li><a href="#">로그아웃</a></li>
 										<li><a href="#">회원정보</a></li>
-										<li>
-											<a href="#">Phasellus consequat</a>
-											<ul>
-												<li><a href="#">Lorem ipsum dolor</a></li>
-												<li><a href="#">Phasellus consequat</a></li>
-												<li><a href="#">Magna phasellus</a></li>
-												<li><a href="#">Etiam dolore nisl</a></li>
-											</ul>
-										</li>
 									</ul>
 									{% else %}
 									<a href="#">로그인</a>
@@ -57,117 +58,93 @@
 							</ul>
 						</nav>
 				</div>
-
-			<!-- Main -->
-				<div class="wrapper">
-					<div class="container" id="main">
-						<div class="row gtr-150">
-							<div class="col-4 col-12-narrower">
-
-								<!-- Sidebar -->
-									<section id="sidebar">
-										<section>
-											<header>
-												<h3>Elit sed feugiat</h3>
-											</header>
-											<p>Lorem ipsum dolor sit amet consectetur et sed adipiscing elit. Curabitur et vel
-											sem sit amet dolor neque semper magna. Lorem ipsum dolor sit amet consectetur et dolore
-											adipiscing elit. Curabitur vel sem sit.</p>
-											<ul class="actions">
-												<li><a href="#" class="button">Magna amet nullam</a></li>
-											</ul>
-										</section>
-										<section>
-											<header>
-												<h3>Commodo lorem varius</h3>
-											</header>
-											<p>Lorem ipsum dolor sit amet consectetur et sed adipiscing elit. Curabitur et vel
-											sem sit amet dolor neque semper magna. Lorem ipsum dolor sit amet consectetur et dolore
-											adipiscing elit. Curabitur vel sem sit.</p>
-											<ul class="actions">
-												<li><a href="#" class="button">Ipsum sed dolor</a></li>
-											</ul>
-										</section>
-									</section>
-
-							</div>
-							<div class="col-8 col-12-narrower imp-narrower">
-
-								<!-- Content -->
-									<article id="content">
-										<header>
-											<h2>Left Sidebar</h2>
-											<p>Lorem ipsum dolor sit amet consectetur et sed adipiscing elit
-											dolor neque semper magna lorem ipsum.</p>
-										</header>
-										<p>Ut sed tortor luctus, gravida nibh eget, volutpat odio. Proin rhoncus, sapien
-										mollis luctus hendrerit, orci dui viverra metus, et cursus nulla mi sed elit. Vestibulum
-										condimentum, mauris a mattis vestibulum, urna mauris cursus lorem, eu fringilla lacus
-										ante non est. Nullam vitae feugiat libero, eu consequat sem. Proin tincidunt neque
-										eros. Duis faucibus blandit ligula, mollis commodo risus sodales at. Sed rutrum et
-										turpis vel blandit. Nullam ornare congue massa, at commodo nunc venenatis varius.
-										Praesent mollis nisi at vestibulum aliquet. Sed sagittis congue urna ac consectetur.</p>
-										<p>Mauris eleifend eleifend felis aliquet ornare. Vestibulum porta velit at elementum
-										gravida nibh eget, volutpat odio. Proin rhoncus, sapien
-										mollis luctus hendrerit, orci dui viverra metus, et cursus nulla mi sed elit. Vestibulum
-										condimentum, mauris a mattis vestibulum, urna mauris cursus lorem, eu fringilla lacus
-										ante non est. Nullam vitae feugiat libero, eu consequat sem. Proin tincidunt neque
-										eros. Duis faucibus blandit ligula, mollis commodo risus sodales at. Sed rutrum et
-										turpis vel blandit. Nullam ornare congue massa, at commodo nunc venenatis varius.
-										Praesent mollis nisi at vestibulum aliquet. Sed sagittis congue urna ac consectetur.</p>
-										<p>Vestibulum pellentesque posuere lorem non aliquam. Mauris eleifend eleifend
-										felis aliquet ornare. Vestibulum porta velit at elementum elementum.</p>
-									</article>
-
-							</div>
-						</div>
-						<div class="row features">
-							<section class="col-4 col-12-narrower feature">
-								<div class="image-wrapper first">
-								</div>
-								<header>
-									<h3>Dolor sit consequat magna</h3>
-								</header>
-								<p>Lorem ipsum dolor sit amet consectetur et sed adipiscing elit. Curabitur
-								vel sem sit dolor neque semper magna lorem ipsum.</p>
-								<ul class="actions">
-									<li><a href="#" class="button">Elevate my awareness</a></li>
-								</ul>
-							</section>
-							<section class="col-4 col-12-narrower feature">
-								<div class="image-wrapper">
-								</div>
-								<header>
-									<h3>Dolor sit consequat magna</h3>
-								</header>
-								<p>Lorem ipsum dolor sit amet consectetur et sed adipiscing elit. Curabitur
-								vel sem sit dolor neque semper magna lorem ipsum.</p>
-								<ul class="actions">
-									<li><a href="#" class="button">Elevate my awareness</a></li>
-								</ul>
-							</section>
-							<section class="col-4 col-12-narrower feature">
-								<div class="image-wrapper">
-								</div>
-								<header>
-									<h3>Dolor sit consequat magna</h3>
-								</header>
-								<p>Lorem ipsum dolor sit amet consectetur et sed adipiscing elit. Curabitur
-								vel sem sit dolor neque semper magna lorem ipsum.</p>
-								<ul class="actions">
-									<li><a href="#" class="button">Elevate my awareness</a></li>
-								</ul>
-							</section>
-						</div>
-					</div>
 				</div>
-		</div>
+				<section class="section-margin--small mb-5">
+
+				</section>
+				<section class="section-margin--small mb-5">
+					<div class="container">
+					  <div class="row">
+						
+						<div class="mx-auto col-xl-9 col-lg-8 col-md-7">
+						  <section class="mx-auto lattest-product-area pb-40 category-list">
+							<form method="GET">
+							<div class="mx-auto input-group mb-3" style="width:600px;">
+							  <input type="text" class="form-control" placeholder="검색어를 입력하세요"  aria-describedby="button-addon2" name="post">
+							  <button type ="submit" class="btn btn-lg btn-default">검색</button>
+							</div>
+						  </form>
+							{% if request.session.user_id%}
+							<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+							  <a href="{% url 'post' %}" class="link-secondary">글쓰기</a>
+							  </a>
+							</div>
+							{% endif %}
+							<hr>
+							<div class="row">
+							  
+							  {% comment %} 게시판 시작 {% endcomment %}
+							  {% for post in info %}
+							  <div class="col-md-6 col-lg-4">
+								<div class="card text-center card-product">
+								  <div class="card-product__img" >
+									<a href = "{% url 'detail' post.l_posting_index %}">
+									<img class="card-img2" src = "" width="300"; height="300" alt onerror="this.src = '/static/img/object/0.png'">
+									</a>
+								  </div>
+								  <div class="card-body">
+									{% comment %} <p></p> {% endcomment %}
+									<h4 class="card-product__title"></h4>
+									<p class="card-product__price">원</p>
+								  </div>
+								</div>
+							  </div>
+							  {% empty %}
+							  <h4 class ="text-center link-secondary">존재하지 않습니다</h4>
+							  {% endfor %}
+							</div>
+						  </section>
+				
+						  {% comment %} 페이징 {% endcomment %}
+						  <div>
+							<ul class = "pagination justify-content-center">
+							  {% if info.has_previous %}
+							  <li class="page-item"> <a href="?page=1"> << </a></li>
+							  <li class="page-item"> <a href="?page={{info.previous_page_number}}"> < </a> </li>
+							  {%else%}
+							  <li><a href = "#" class="link-secondary"> << </a></li>
+							  <li><a href = "#"> < </a></li>
+							  {% endif %}
+				
+						
+							  {% for i in info.paginator.page_range %}
+							  {% if i >= info.number|add:-4 and i <= info.number|add:5 %}
+								<li>
+								  <a href = "?page={{i}}">
+									{{i}} </a>
+								  </li>
+							  {%endif%}
+							  {%endfor%}
+				
+				
+							  {% if info.has_next %}
+							  <li><a href="?page={{info.next_page_number}}"> > </a> </li>
+							  <li><a href="?page={{last_page_num}}"> >> </a> </li>
+							  {%else%}
+							  <li><a href = "#"> > </a></li>
+							  <li><a href = "#"> >> </a></li>
+							  {% endif %}
+								</ul>
+							</div>
+						  <!-- End Best Seller -->
+						</div>
+					  </div>
+					</div>
+				</section>
 		<script src="{% static 'js/jquery.min.js' %}"></script>
 		<script src="{% static 'js/jquery.dropotron.min.js' %}"></script>
 		<script src="{% static 'js/browser.min.js' %}"></script>
 		<script src="{% static 'js/breakpoints.min.js' %}"></script>
 		<script src="{% static 'js/util.js' %}"></script>
 		<script src="{% static 'js/main.js' %}"></script>
-
-	</body>
 </html>
