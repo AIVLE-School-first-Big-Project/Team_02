@@ -4,6 +4,10 @@ app_name = 'Translation'
 
 
 urlpatterns = [
-        path('', views.index, name='index'),
+        path('', views.home, name='index'),
+        path('signlanguage/', views.signlanguage, name='signlanguage'),
+        path('braille/', views.braille, name='braille'),
+        path('textlanguage/', views.textlanguage, name='textlanguage'),
+        path('soundlanguage/', views.soundlanguage, name='soundlanguage'),
 
 ]

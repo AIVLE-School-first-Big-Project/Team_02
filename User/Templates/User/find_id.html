@@ -2,15 +2,14 @@
 
 <script>
     function show_id(){
-        var confirm_email = document.querySelector('input[name="input_name"]');
-        console.log(confirm_email.value);
+        var confirm_email = document.getElementById('getemail_id').value
+        
         $.ajax({
             url: '{% url 'user:show_id' %}',
             type: "GET",
             dataType: "json",
-            data: {'confirm_email': confirm_email.value},
+            data: {'confirm_email': confirm_email},
             success: function(data){
-                console.log(data['confirm_id']);
                 var element=document.getElementById('div_id');
                 document.all('div_id').innerHTML=data['confirm_id']
             }
@@ -19,7 +18,7 @@
     </script>
 <form method="POST" action="{% url 'user:find_id' %}">
     {% csrf_token %}
-    <input type="text" name="confirm_email">
+    <input id="getemail_id" type="text" name="confirm_email">
     <button class="send_btn" onclick="show_id()" type="button">send</button>
 </form>
 <div id="div_id"></div>
