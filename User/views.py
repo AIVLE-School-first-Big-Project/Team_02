@@ -46,7 +46,7 @@ def login(request):
  
     user = request.user
     if user.is_authenticated:
-        return redirect("/")
+        return redirect("/main")
  
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -57,7 +57,7 @@ def login(request):
             if user:
                 auth_login(request, user)
                 request.session['username'] = username
-                return redirect("/")
+                return redirect("/main")
     else:
         form = LoginForm()
  
@@ -67,7 +67,7 @@ def login(request):
 
 def logout(request):
      auth_logout(request)
-     return redirect('/')
+     return redirect('/main')
 
 def delete(request, username):
      context = {}
@@ -79,7 +79,7 @@ def delete(request, username):
                if user:
                     user.delete()
                     logout(request)
-                    return redirect('/')
+                    return redirect('/main')
      else:
           form = PasswordVerificationForm(instance=request.user)
      context['password_form'] = form
@@ -119,7 +119,7 @@ def mypage(request, username):
           context['username'] = user
           return render(request, 'user/mypage.html', context)
      else:
-          return redirect('/')
+          return redirect('/main')
 
 def active_message(username_64):
      LENGTH = 8
