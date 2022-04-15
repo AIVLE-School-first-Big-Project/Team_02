@@ -27,38 +27,39 @@
 		<link href="{% static 'css/jquery.fancybox.css' %}" rel="stylesheet">
 		<link rel="stylesheet" href="{% static 'css/main.css' %}"/>
 	</head>
-			<div id="header-wrapper">
-				<div id="header" class="container">
-					<!-- Logo -->
-						<h1 id="logo"><a href="{% url 'Main:index' %}">너나들이</a></h1>
+	<div id="header-wrapper">
+		<div id="header" class="container">
+			<!-- Logo -->
+				<h1 id="logo"><a href="{% url 'Main:index' %}">너나들이</a></h1>
 
-					<!-- Nav -->
-						<nav id="nav">
+			<!-- Nav -->
+				<nav id="nav">
+					<ul>
+						<li><a href="{% url 'Post:post' %}">게시판</a>
 							<ul>
-								<li><a href="{% url 'Post:post' %}">게시판</a>
-									<ul>
-										<li><a href="#">수어 게시판</a></li>
-										<li><a href="#">점자 게시판</a></li>
-									</ul>
-								</li>
-								<li class="break"><a href="{% url 'Qna:index' %}">Q&A</a></li>
+								<li><a href="#">수어 게시판</a></li>
+								<li><a href="#">점자 게시판</a></li>
 							</ul>
+						</li>
+						<li class="break"><a href="{% url 'Qna:index' %}">Q&A</a></li>
+					</ul>
+					<ul>
+						<li>
+							{% if request.session.username%}
+							<a href="#">{{ request.session.username }}님</a>
 							<ul>
-								<li>
-									{% if request.session.user_id%}
-									<a href="#">{{ request.session.username }}님</a>
-									<ul>
-										<li><a href="#">로그아웃</a></li>
-										<li><a href="#">회원정보</a></li>
-									</ul>
-									{% else %}
-									<a href="#">로그인</a>
-									{% endif %}
-								</li>
+								<li><a href="{% url 'user:logout' %}">로그아웃</a></li>
+								<li><a href="{% url 'user:mypage' user.username %}">회원정보</a></li>
 							</ul>
-						</nav>
-				</div>
-				</div>
+							{% else %}
+							<a href="{% url 'user:login' %}">로그인</a>
+							{% endif %}
+						</li>
+					</ul>
+				</nav>
+			</div>
+
+		</div>
 				<section class="section-margin--small mb-5">
 
 				</section>
