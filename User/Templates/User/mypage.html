@@ -1,0 +1,15 @@
+
+        <strong>MY PAGE</strong>
+
+        <strong>ID : {{ user.username }}</strong><br>
+        <strong>Name : {{ user.name }}</strong><br>
+        <strong>Email : {{ user.email }}</strong><br>
+
+        <a href="{% url 'user:update' user.username %}">
+            <button class="btn btn-success"><strong>UPDATE INFO</strong></button>
+        </a>
+
+        <a href="{% url 'user:delete' user.username %}">
+            <button class="btn btn-success"><strong>WITHDRAWL</strong></button>
+        </a>
+        <strong> 최근 작성글</strong>

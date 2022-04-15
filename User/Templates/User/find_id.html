@@ -1,0 +1,25 @@
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+<script>
+    function show_id(){
+        var confirm_email = document.querySelector('input[name="input_name"]');
+        console.log(confirm_email.value);
+        $.ajax({
+            url: '{% url 'user:show_id' %}',
+            type: "GET",
+            dataType: "json",
+            data: {'confirm_email': confirm_email.value},
+            success: function(data){
+                console.log(data['confirm_id']);
+                var element=document.getElementById('div_id');
+                document.all('div_id').innerHTML=data['confirm_id']
+            }
+        });
+    }
+    </script>
+<form method="POST" action="{% url 'user:find_id' %}">
+    {% csrf_token %}
+    <input type="text" name="confirm_email">
+    <button class="send_btn" onclick="show_id()" type="button">send</button>
+</form>
+<div id="div_id"></div>
