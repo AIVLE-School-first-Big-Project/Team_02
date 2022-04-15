@@ -116,7 +116,7 @@ input, select, textarea {
 
 	h1, h2, h3, h4, h5, h6 {
 		font-weight: 300;
-		color: #52575c;
+		color: #000000;
 	}
 
 	h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
@@ -2025,42 +2025,6 @@ input, select, textarea {
 			border-color: rgba(243, 88, 88, 0.5);
 		}
 
-/* Icons */
-
-	.icon {
-		text-decoration: none;
-		text-decoration: none;
-	}
-
-		.icon:before {
-			-moz-osx-font-smoothing: grayscale;
-			-webkit-font-smoothing: antialiased;
-			display: inline-block;
-			font-style: normal;
-			font-variant: normal;
-			text-rendering: auto;
-			line-height: 1;
-			text-transform: none !important;
-			font-family: 'Font Awesome 5 Free';
-			font-weight: 400;
-		}
-
-		.icon:before {
-			line-height: inherit;
-		}
-
-		.icon > .label {
-			display: none;
-		}
-
-		.icon.solid:before {
-			font-weight: 900;
-		}
-
-		.icon.brands:before {
-			font-family: 'Font Awesome 5 Brands';
-		}
-
 /* Wrappers */
 
 	.wrapper {
@@ -2070,66 +2034,18 @@ input, select, textarea {
 		padding: 6em 0 6em 0;
 	}
 
-	.image-wrapper {
-		position: relative;
-	}
-
-		.image-wrapper .image {
-			position: relative;
-			z-index: 2;
-		}
-
-		.image-wrapper.first:before {
-			content: '';
-			display: block;
-			width: 2000%;
-			height: 100%;
-			position: absolute;
-			left: -1000%;
-			top: 0;
-			z-index: 1;
-			box-shadow: inset 0px 0px 0px 1px #e8e8e8;
-			background: #f6f8fb url("images/image-wrapper.svg");
-		}
-
 	#header-wrapper {
 		position: relative;
 		padding: 4em 0 2em 0;
-		background-image: url("images/header.svg");
-		background-image: url("images/overlay.png"), url("images/header.svg"), -moz-linear-gradient(75deg, #FF7088 15%, #F2B69D 55%);
-		background-image: url("images/overlay.png"), url("images/header.svg"), -webkit-linear-gradient(75deg, #FF7088 15%, #F2B69D 55%);
-		background-image: url("images/overlay.png"), url("images/header.svg"), -ms-linear-gradient(75deg, #FF7088 15%, #F2B69D 55%);
-		background-image: url("images/overlay.png"), url("images/header.svg"), linear-gradient(75deg, #FF7088 15%, #F2B69D 55%);
-		background-color: #f08c89;
-		background-size: 100% 620%;
-		background-size: 128px 128px, 100% 620%, auto;
-		background-repeat: repeat, no-repeat, no-repeat;
+		background: url('../img/hero.jpg')  no-repeat center center;
+		background-size: cover;
 	}
 
 	.homepage #header-wrapper {
+		
 		padding: 10em 0 6em 0;
 		background-size: 128px 128px, 100% 100%, auto;
 	}
-
-	#promo-wrapper {
-		position: relative;
-		background-image: url("images/overlay.png"), url("../../images/promo.jpg");
-		background-size: 192px 192px, cover;
-		background-position: top left, center center;
-		color: #fff;
-		text-align: center;
-		padding: 6em 0 6em 0;
-	}
-
-	#footer-wrapper {
-		-webkit-transform: translate3d(0, 0, 0);
-		position: relative;
-		border-top: solid 1px #c2c7cc;
-		padding: 6em 0 6em 0;
-		background-image: url("images/overlay.png"), url("images/footer.svg");
-		background-size: 128px 128px,				100% 100%;
-	}
-
 /* Header */
 
 	#logo {
