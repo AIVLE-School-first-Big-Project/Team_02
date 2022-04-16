@@ -1,3 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div style="background: url('../img/hero.jpg')  repeat center top;padding:5%;display: flex;flex-direction: column;align-items: center;">
+
 <h2> Update</h2>
 
 <form id='update_form' method='post'>{% csrf_token %}
@@ -30,3 +36,5 @@
     }
 </script>
 <button onclick="submitform()">Update</button> 
+</div>
+{% endblock %}

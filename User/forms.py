@@ -5,21 +5,23 @@ from django.contrib.auth import authenticate
 
 
 class SignupForm(UserCreationForm):
-    username = forms.CharField(max_length=150, label="ID", help_text="필수")
-    name = forms.CharField(max_length=128, label="Name", help_text="필수")
-    email = forms.EmailField(max_length=128, label="Email", help_text="필수")
-    
+    username = forms.CharField(max_length=150, label="아이디")
+    name = forms.CharField(max_length=128, label="이름")
+    email = forms.EmailField(max_length=128, label="이메일")
     class Meta:
             model = User
             fields = ("username", 'name', 'email', "password1", "password2" )
             
 
 class LoginForm(forms.ModelForm):
-    password = forms.CharField(label='Password', widget=forms.PasswordInput)
+    password = forms.CharField(label='비밀번호', widget=forms.PasswordInput)
  
     class Meta:
         model = User
         fields = ('username', 'password')
+        labels = {
+            "username": "아이디",
+        }
  
     def clean(self):
         if self.is_valid():

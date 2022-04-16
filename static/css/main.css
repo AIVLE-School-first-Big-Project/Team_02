@@ -87,7 +87,7 @@ input, select, textarea {
 	}
 
 	body {
-		background: #f5f7fa;
+		/* background: #f5f7fa; */
 		font-family: 'Source Sans Pro', sans-serif;
 		font-weight: 300;
 		color: #52575c;
@@ -2037,7 +2037,8 @@ input, select, textarea {
 	#header-wrapper {
 		position: relative;
 		padding: 4em 0 2em 0;
-		background: url('../img/hero.jpg')  no-repeat center center;
+		/* background: url('../img/hero.jpg')  no-repeat center center; */
+		background: url('../img/hero.jpg')  no-repeat center top;
 		background-size: cover;
 	}
 
@@ -2188,6 +2189,7 @@ input, select, textarea {
 /* Hero */
 
 	#hero {
+		/* position: absolute; */
 		position: relative;
 		color: #fff;
 		text-align: center;

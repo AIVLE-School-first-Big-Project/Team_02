@@ -13,4 +13,11 @@ urlpatterns = [
     path('find_id/show_id/', views.show_id, name='show_id'),
     path('find_pw/', views.find_pw, name='find_pw'),
     path('update/<str:username>', views.update, name='update'),
+
+
+
+
+    path('test', views.test, name='test'),
+
 ]
+

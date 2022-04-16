@@ -155,3 +155,7 @@ def find_pw(request):
           form = ParamForm()
      context['param_form'] = form
      return render(request, "User/find_pw.html", context)
+
+
+def test(request):
+     return render(request, "../templates/base.html")

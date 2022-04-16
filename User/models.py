@@ -34,9 +34,9 @@ class UserManager(BaseUserManager):
     
 class User(AbstractBaseUser):
     
-    username = models.CharField(unique=True, max_length=20, blank=True)
-    name = models.CharField(max_length=20)
-    email = models.EmailField(max_length=50, unique=True)
+    username = models.CharField(unique=True, max_length=150, blank=True)
+    name = models.CharField(max_length=128)
+    email = models.EmailField(max_length=128, unique=True)
     date_joined = models.DateField(default=datetime.now)
     is_staff = models.IntegerField(blank=True, null=True)
     is_active = models.IntegerField(blank=True, null=True)
