@@ -1,19 +1,33 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div style="background: url('../img/hero.jpg')  repeat center top;padding:5%;display: flex;flex-direction: column;align-items: center;">
-        <strong>MY PAGE</strong><br>
-        <strong>ID : {{ user.username }}</strong><br>
-        <strong>Name : {{ user.name }}</strong><br>
-        <strong>Email : {{ user.email }}</strong><br>
-
-        <a href="{% url 'user:update' user.username %}">
-            <button class="btn btn-success"><strong>UPDATE INFO</strong></button>
-        </a>
-
-        <a href="{% url 'user:delete' user.username %}">
-            <button class="btn btn-success"><strong>WITHDRAWL</strong></button>
-        </a>
-        <strong> 최근 작성글</strong>
+    <div style="padding:5%;display: flex;flex-direction: column;align-items: center;">
+    <div style="width:100%">
+        <div class="left" style="width: 50%;float: left; box-sizing: content-box;margin:auto;display: flex;flex-direction: column;align-items: center;">
+            <strong><h2>MY PAGE</h2></strong><br>
+            <h3>ID : {{ user.username }}</h3><br>
+            <h3>Name : {{ user.name }}</h3><br>
+            <h3>Email : {{ user.email }}</h3><br>
+            <div>
+                <div class="left" style="width: 50%;float: left; box-sizing: border-box;margin:auto;display: flex;flex-direction: column;align-items: center;">
+                    <a href="{% url 'user:update' user.username %}">
+                        <button class="btn btn-success" 
+                                style="background-color:white;border: solid 1px #c2c7cc;border-radius: 0.35em;padding: 0.8em 2em 0.8em 2em;cursor: pointer;margin-right:0.75em">
+                        <strong>회원 정보 수정</strong></button>
+                    </a>
+                </div>
+                <div class="right" style="width: 50%;float: left; box-sizing: border-box;margin:auto;display: flex;flex-direction: column;align-items: center;">
+                    <a href="{% url 'user:delete' user.username %}">
+                        <button class="btn btn-success" 
+                                style="background-color:white;border: solid 1px #c2c7cc;border-radius: 0.35em;padding: 0.8em 2em 0.8em 2em;cursor: pointer;margin-left:0.75em">
+                        <strong>회원탈퇴</strong></button>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="right" style="width: 50%;float: left; box-sizing: content-box;margin:auto;display: flex;flex-direction: column;align-items: center;">
+            <strong> 최근 작성글</strong>
+        </div>
+    </div>
     </div>
 {% endblock %}

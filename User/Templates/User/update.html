@@ -2,13 +2,14 @@
 
 {% block content %}
 
-<div style="background: url('../img/hero.jpg')  repeat center top;padding:5%;display: flex;flex-direction: column;align-items: center;">
+<div style="padding:5%;display: flex;flex-direction: column;align-items: center;">
 
-<h2> Update</h2>
+<h2>회원 정보 수정</h2>
 
-<form id='update_form' method='post'>{% csrf_token %}
+<form id='update_form' method='post' style="width:33%;height:30%">{% csrf_token %}
     {% for field in update_form %}
-        <p>
+
+            <div style="margin-top: 1.5em">
             {{field.label_tag}}
 
             {{field}}
@@ -25,16 +26,45 @@
                 <div style="color:red">
                     <p>{{update_form.non_field.errors}}</p>
                 </div>
+
             {% endif %}
+            </div>
     {% endfor %}
-    {{pwupdate_form}}
+    
+    {% for field in pwupdate_form %}
+
+            <div style="margin-top: 1.5em">
+            {{field.label_tag}}
+
+            {{field}}
+
+            {% comment %} {% if field.help_text %}
+                <small style="color:grey;">{{field.help_text}}</small>
+            {% endif %} {% endcomment %}
+
+            {% for error in field.errors %}
+                <small style="color:red;">{{error}}</small><br>
+            {% endfor %}
+
+            {% if update_form.non_field.errors%}
+                <div style="color:red">
+                    <p>{{update_form.non_field.errors}}</p><br>
+                </div>
+
+            {% endif %}
+            </div>
+    {% endfor %}
+
 </form>   
+
 <script>
     submitform = function(){
     document.getElementById("update_form").submit();
     document.getElementById("pwupdate_form").submit();
     }
 </script>
-<button onclick="submitform()">Update</button> 
+
+<button onclick="submitform()"  style="display: block;margin: 0 auto; margin-top: 1.5em;" >수정</button> 
+
 </div>
 {% endblock %}

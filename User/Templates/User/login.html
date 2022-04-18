@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<div style="background: url('../img/hero.jpg')  repeat center top;padding:5%;display: flex;flex-direction: column;align-items: center;">
+<div style="padding:5%;display: flex;flex-direction: column;align-items: center;">
     <h2>Log In</h2>
     <br><br>
     <form method='post' style="width:33%;height:30%">{% csrf_token %}
@@ -30,8 +30,10 @@
             </p>
         {% endfor %}
         <button type="submit" style="display: block;margin: 0 auto;">Log In</button>
-        <a href="{% url 'user:find_id'%}">ID 찾기</a>
-        <a href="{% url 'user:find_pw'%}">PW 찾기</a>
+        <div style="display: block;margin: 0 auto;display: flex;flex-direction: row;justify-content: center;margin-top:1.5em">
+        <a href="{% url 'user:find_id'%}" style="margin-right:0.75em">ID 찾기</a>
+        <a href="{% url 'user:find_pw'%}" style="margin-left:0.75em">PW 찾기</a>
+        </div>
     </form>
 </div>
 

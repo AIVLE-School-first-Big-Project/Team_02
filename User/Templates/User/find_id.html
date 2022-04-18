@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<div style="background: url('../img/hero.jpg')  repeat center top;padding:5%;display: flex;flex-direction: column;align-items: center;">
+<div style="padding:5%;display: flex;flex-direction: column;align-items: center;">
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
@@ -16,18 +16,21 @@
             dataType: "json",
             data: {'confirm_email': confirm_email},
             success: function(data){
-                var element=document.getElementById('div_id');
-                document.all('div_id').innerHTML=data['confirm_id']
-            }
+                document.all('div_id').innerHTML="아이디는 " + data['confirm_id'] + " 입니다.";
+            }, error: function(e) { 
+                document.all('div_id').innerHTML="<p><strong style='color:red'>찾으시는 아이디가 없습니다.</strong></p>";
+            } 
+            
         });
     }
     </script>
-<form method="POST" action="{% url 'user:find_id' %}">
+<p>이메일을 입력해주세요.</p>
+<form method="POST" action="{% url 'user:find_id' %}" style="width:33%;height:30%, margin-bottom: 1.5em">
     {% csrf_token %}
     <input id="getemail_id" type="text" name="confirm_email">
-    <button class="send_btn" onclick="show_id()" type="button">send</button>
+    <button class="send_btn" onclick="show_id()" type="button" style="display: block;margin: 0 auto; margin-top: 1.5em">아이디 찾기</button>
 </form>
-<div id="div_id"></div>
+<div id="div_id" style="display: block;margin: 0 auto; margin-top: 1.5em"></div>
 
 <div>
 {% endblock %}

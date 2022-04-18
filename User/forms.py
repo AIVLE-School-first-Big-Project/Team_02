@@ -38,6 +38,11 @@ class UpdateForm(UserChangeForm):
     class Meta:
         model = User
         fields = ("username", 'name', 'email', )
+        labels = {
+            "username": "아이디",
+            "name" : "이름",
+            "email" : "이메일",
+        }
         
 class PasswordVerificationForm(forms.ModelForm):
     password = forms.CharField(label='Password', widget=forms.PasswordInput)
@@ -48,6 +53,10 @@ class PasswordVerificationForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('username', 'password')
+        labels = {
+            "username": "아이디",
+            "password" : "비밀번호"
+        }
  
     def clean(self):
         if self.is_valid():
@@ -57,7 +66,6 @@ class PasswordVerificationForm(forms.ModelForm):
                 raise forms.ValidationError("비밀번호가 일치하지 않습니다.")  
             
 class ParamForm(forms.Form):
-    username = forms.CharField(label='ID')
-    email = forms.CharField(label='Email')
-
+    username = forms.CharField(label='아이디')
+    email = forms.CharField(label='이메일')
     

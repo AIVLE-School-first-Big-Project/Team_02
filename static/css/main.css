@@ -141,7 +141,7 @@ input, select, textarea {
 		transition: color 0.25s ease-in-out, border-color 0.25s ease-in-out, background-color 0.25s ease-in-out;
 		color: inherit;
 		text-decoration: none;
-		border-bottom: dotted 1px #62676c;
+		/* border-bottom: dotted 1px #62676c; */
 	}
 
 		a:hover {
@@ -2262,6 +2262,7 @@ input, select, textarea {
 			color: #27636B;
 			font-size: 1.25em;
 		}
+
 
 			#promo .button:hover {
 				border-color: rgba(255, 255, 255, 0.75);

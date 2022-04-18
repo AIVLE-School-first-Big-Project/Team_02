@@ -4,7 +4,7 @@
 
 <div style="background: url('../img/hero.jpg')  repeat center top;padding:5%;display: flex;flex-direction: column;align-items: center;">
 
-<form method='post' action="{% url 'user:find_pw' %}">{% csrf_token %}
+<form method='post' action="{% url 'user:find_pw' %}" style="width:33%;height:30%">{% csrf_token %}
     {% for field in param_form %}
         <p>
             {{field.label_tag}}
@@ -13,8 +13,11 @@
 
         </p>
     {% endfor %}
-    <button type="submit">Log In</button>
+    <button type="submit" style="display: block;margin: 0 auto; margin-top: 1.5em; margin-bottom: 1.5em">비밀번호 재발급</button>
 </form>
+
+
+<p ><strong style="color:red">{{ error }}</strong></p>
 
 </div>
 

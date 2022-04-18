@@ -12,8 +12,8 @@ class UserManager(BaseUserManager):
         if not email:
             raise ValueError("이메일을 입력해주세요.")
         
-        user = self.model(              # 이 안에 유저 정보에 필요한 필드를 넣으면 된다.
-            username = username,     # 왼쪽이 필드, 오른쪽이 넣을 값.
+        user = self.model(
+            username = username,
             name = name,
             email = self.normalize_email(email),
         )
@@ -49,16 +49,16 @@ class User(AbstractBaseUser):
 
     def __str__(self):
         return self.identifier
-
+    
+    # 권한 소지여부를 판단하기 위한 메서드
     def has_perm(self, perm, obj=None):
-        '''권한 소지여부를 판단하기 위한 메서드'''
         return True
-
+    
+    # 앱 라벨을 받아, 해당 앱에 접근 가능한지 파악
     def has_module_perms(self, app_label):
-        '''앱 라벨을 받아, 해당 앱에 접근 가능한지 파악'''
         return True
-
+    
+    # 관리자화면에 접근
     @property
     def is_staff(self):
-        '''이게 True면  관리자화면에 접근 가능'''
         return self.is_admin

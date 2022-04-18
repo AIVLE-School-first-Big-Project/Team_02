@@ -1,3 +1,5 @@
+import email
+from genericpath import exists
 import random
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
@@ -10,6 +12,7 @@ from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.hashers import make_password
 from django.core.mail import EmailMessage
+from django.core.exceptions import ObjectDoesNotExist
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
 
@@ -80,6 +83,9 @@ def delete(request, username):
                     user.delete()
                     logout(request)
                     return redirect('/main')
+          else:
+               context['error'] = '회원정보가 일치하지 않습니다.'
+               render(request, "User/delete.html", context) 
      else:
           form = PasswordVerificationForm(instance=request.user)
      context['password_form'] = form
@@ -90,6 +96,9 @@ def update(request, username):
      if request.method == 'POST':
           form = UpdateForm(request.POST, instance=request.user)
           form2 = PasswordChangeForm(request.user, request.POST)
+          print(form)
+          print()
+          print(form2)
           if form.is_valid() and form2.is_valid():
                form.save()
                user2 = form2.save()
@@ -109,7 +118,7 @@ def find_id(request):
 def show_id(request):
      confirm_email = request.GET.get('confirm_email')
      confirm_id = User.objects.get(email=confirm_email).username
-     context = {'confirm_id' : confirm_id}
+     context = {'confirm_id' : confirm_id, 'request' : 0}
      return JsonResponse(context)
 
 def mypage(request, username):
@@ -138,19 +147,23 @@ def find_pw(request):
      context = {}
      if request.method == 'POST':
           form = ParamForm(request.POST)
-          username = request.POST.get('username')
-          email = request.POST.get('email')
-          confirm_username = User.objects.get(email=email).username
-          confirm_email = User.objects.get(username=username).email
-          if confirm_email == email and confirm_username == username:
-               user = User.objects.get(username=username)
-               username_64 = urlsafe_base64_encode(force_bytes(username))
-               message_data = active_message(username_64)
-               mail_title = "비밀번호 재발급"
-               mail_to = user.email
-               email = EmailMessage(mail_title, message_data, to=[mail_to])
-               email.send()
-               return redirect('/user/login')
+          try:
+               username = request.POST.get('username')
+               email = request.POST.get('email')
+               confirm_username = User.objects.get(email=email).username
+               confirm_email = User.objects.get(username=username).email
+               if confirm_email == email and confirm_username == username:
+                    user = User.objects.get(username=username)
+                    username_64 = urlsafe_base64_encode(force_bytes(username))
+                    message_data = active_message(username_64)
+                    mail_title = "비밀번호 재발급"
+                    mail_to = user.email
+                    email = EmailMessage(mail_title, message_data, to=[mail_to])
+                    email.send()
+                    return redirect('/user/login')
+          except ObjectDoesNotExist:
+               context['error'] = '일치하는 정보가 없습니다.'
+               render(request, "User/find_pw.html", context)
      else:
           form = ParamForm()
      context['param_form'] = form

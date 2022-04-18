@@ -2,10 +2,10 @@
 
 {% block content %}
 
-<div style="background: url('../img/hero.jpg')  repeat center top;padding:5%;display: flex;flex-direction: column;align-items: center;">
+<div style="padding:5%;display: flex;flex-direction: column;align-items: center;">
 
-<h2> Delete</h2>
-<form method='post'>{% csrf_token %}
+<h2>회원 탈퇴</h2>
+<form method='post' style="width:33%;height:30%">{% csrf_token %}
     {% for field in password_form %}
         <p>
             {{field.label_tag}}
@@ -28,7 +28,9 @@
 
         </p>
     {% endfor %}
-    <button type="submit">Delete</button>
-
+    <div style="display: flex;flex-direction: column;align-items: center;">
+    <p><strong style="color:red;">{{ error }}</strong></p>
+    <button type="submit">회원탈퇴</button>
+    </div>
 </div>
 {% endblock %}
