@@ -27,6 +27,13 @@
         </div>
         <div class="right" style="width: 50%;float: left; box-sizing: content-box;margin:auto;display: flex;flex-direction: column;align-items: center;">
             <strong> 최근 작성글</strong>
+            {% comment %} {% for post in posts %}
+                <strong style="font-size:20px;color:white;">
+                    <a href='{% url "Post:" %}?id={{ post.post_idx }}'>
+                        {{ post.title }}
+                    </a>
+                </strong><br>
+            {% endfor %} {% endcomment %}
         </div>
     </div>
     </div>

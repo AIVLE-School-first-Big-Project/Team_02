@@ -5,9 +5,9 @@ from django.contrib.auth import authenticate
 
 
 class SignupForm(UserCreationForm):
-    username = forms.CharField(max_length=150, label="아이디")
+    username = forms.CharField(max_length=150, label="아이디", error_messages={'unique':"이미 존재하는 아이디입니다."})
     name = forms.CharField(max_length=128, label="이름")
-    email = forms.EmailField(max_length=128, label="이메일")
+    email = forms.EmailField(max_length=128, label="이메일", error_messages={'unique':"이미 존재하는 이메일입니다."})
     class Meta:
             model = User
             fields = ("username", 'name', 'email', "password1", "password2" )
