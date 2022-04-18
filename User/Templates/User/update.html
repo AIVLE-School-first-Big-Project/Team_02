@@ -14,10 +14,6 @@
 
             {{field}}
 
-            {% comment %} {% if field.help_text %}
-                <small style="color:grey;">{{field.help_text}}</small>
-            {% endif %} {% endcomment %}
-
             {% for error in field.errors %}
                 <small style="color:red;">{{error}}</small>
             {% endfor %}
@@ -37,11 +33,7 @@
             {{field.label_tag}}
 
             {{field}}
-
-            {% comment %} {% if field.help_text %}
-                <small style="color:grey;">{{field.help_text}}</small>
-            {% endif %} {% endcomment %}
-
+            
             {% for error in field.errors %}
                 <small style="color:red;">{{error}}</small><br>
             {% endfor %}

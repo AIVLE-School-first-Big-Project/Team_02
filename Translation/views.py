@@ -36,43 +36,31 @@ def gen(camera):
 
 @gzip.gzip_page
 def signlanguage(request):
-    # 아마 모델링 코드...? 텍스트를 넘겨준다
-    context = {}
-    text = '2조화이팅'
-    context['text'] = text
-    context['audio_path'] = soundlanguage(text)
-    context['braille_path'] = braille(text)
-    # {'filename' : f"{filename}"}
     try:
         cam = VideoCamera()
-        JsonResponse(context)
         return StreamingHttpResponse(gen(cam), content_type="multipart/x-mixed-replace;boundary=frame")
     except:
         print("error")
         pass
 
-    
-def braille(request):
+def braille(text):
     # 텍스트 to 점자
-    print("braille")
-    return
+    context = {'img_path' : '../static/braille/images.jpg'}
+    return JsonResponse(context)
 
 def textlanguage(request):
     # 수어 to 텍스트... 
-    print("textlanguage")
-    return
-
-# def soundlanguage(request):
-#     # 텍스트 to 음성
-#     text = '안녕하세요'
-#     tts = gTTS(text=text, lang='ko')
-#     filename = time.strftime("%Y%m%d-%H%M%S")
-#     tts.save(f"./static/audio/{filename}.mp3")
-#     return render(request, 'Translation/test.html', {'filename' : f"{filename}"})
+    text = '2조 화이팅'
+    language = request.GET.get('language')
+    if language == 'braille':
+        return braille(text)
+    elif language == 'soundlanguage':
+        return soundlanguage(text)
 
 def soundlanguage(text):
     # 텍스트 to 음성
     tts = gTTS(text=text, lang='ko')
     filename = time.strftime("%Y%m%d-%H%M%S")
     tts.save(f"./static/audio/{filename}.mp3")
-    return filename
+    context = {'audio_path' : filename}
+    return JsonResponse(context)

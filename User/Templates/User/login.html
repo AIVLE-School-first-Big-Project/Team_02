@@ -6,7 +6,6 @@
     <h2>Log In</h2>
     <br><br>
     <form method='post' style="width:33%;height:30%">{% csrf_token %}
-    {% comment %} <form method='post' style="width: 50vh;margin:auto;">{% csrf_token %} {% endcomment %}
         {% for field in login_form %}
             <p>
                 {{field.label_tag}}
