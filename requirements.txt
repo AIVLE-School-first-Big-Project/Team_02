@@ -42,7 +42,7 @@ cloudpickle @ file:///tmp/build/80754af9/cloudpickle_1598884132938/work
 clyent==1.2.2
 colorama @ file:///tmp/build/80754af9/colorama_1607707115595/work
 comtypes==1.1.9
-conda==4.11.0
+conda==4.12.0
 conda-build==3.21.4
 conda-content-trust @ file:///tmp/build/80754af9/conda-content-trust_1617045594566/work
 conda-package-handling @ file:///C:/ci/conda-package-handling_1618262320430/work
@@ -60,6 +60,7 @@ dask @ file:///tmp/build/80754af9/dask-core_1617390489108/work
 decorator @ file:///tmp/build/80754af9/decorator_1617916966915/work
 defusedxml @ file:///tmp/build/80754af9/defusedxml_1615228127516/work
 diff-match-patch @ file:///tmp/build/80754af9/diff-match-patch_1594828741838/work
+distlib @ file:///tmp/build/80754af9/distlib_1622544193819/work
 distributed @ file:///C:/ci/distributed_1617384289923/work
 Django==2.2.5
 docutils @ file:///C:/ci/docutils_1617481617511/work
@@ -83,6 +84,7 @@ google-auth-oauthlib==0.4.6
 google-pasta==0.2.0
 greenlet @ file:///C:/ci/greenlet_1611958565931/work
 grpcio==1.44.0
+gTTS==2.2.4
 h11==0.13.0
 h2==3.2.0
 h5py==2.10.0
@@ -169,6 +171,7 @@ numpy @ file:///C:/ci/numpy_and_numpy_base_1618497418457/work
 numpydoc @ file:///tmp/build/80754af9/numpydoc_1605117425582/work
 oauthlib==3.2.0
 olefile==0.46
+opencv-python==4.5.5.64
 openpyxl @ file:///tmp/build/80754af9/openpyxl_1615411699337/work
 opt-einsum==3.3.0
 outcome==1.1.0
@@ -305,6 +308,7 @@ typing-extensions @ file:///home/ktietz/src/ci_mi/typing_extensions_161280820962
 ujson @ file:///C:/ci/ujson_1611241570789/work
 unicodecsv==0.14.1
 urllib3 @ file:///tmp/build/80754af9/urllib3_1615837158687/work
+virtualenv @ file:///C:/ci/virtualenv_1620977857516/work
 w3lib==1.22.0
 watchdog @ file:///C:/ci/watchdog_1612471251191/work
 wcwidth @ file:///tmp/build/80754af9/wcwidth_1593447189090/work
