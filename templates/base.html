@@ -42,8 +42,8 @@
 									{% if request.session.username%}
 									<a href="#">{{ request.session.username }}님</a>
 									<ul>
-										<li><a href="{% url 'user:logout' %}">로그아웃</a></li>
 										<li><a href="{% url 'user:mypage' user.username %}">회원정보</a></li>
+										<li><a href="{% url 'user:logout' %}">로그아웃</a></li>
 									</ul>
 									{% else %}
 									<a href="{% url 'user:login' %}">로그인</a>

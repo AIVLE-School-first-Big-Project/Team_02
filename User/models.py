@@ -46,9 +46,6 @@ class User(AbstractBaseUser):
 
     USERNAME_FIELD = 'username'   # 식별자로 사용할 필드.
     REQUIRED_FIELDS = ['name', 'email']            # 회원가입 때 필수 입력필드.
-
-    def __str__(self):
-        return self.identifier
     
     # 권한 소지여부를 판단하기 위한 메서드
     def has_perm(self, perm, obj=None):
