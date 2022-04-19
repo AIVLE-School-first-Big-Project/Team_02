@@ -42,23 +42,20 @@ class User(AbstractBaseUser):
     is_active = models.IntegerField(blank=True, null=True)
     is_admin = models.BooleanField(default=False)
 
-    objects = UserManager()  # 회원가입을 다룰 클래스를 지정한다.
+    objects = UserManager()
 
-    USERNAME_FIELD = 'username'   # 식별자로 사용할 필드.
-    REQUIRED_FIELDS = ['name', 'email']            # 회원가입 때 필수 입력필드.
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ['name', 'email']
 
     def __str__(self):
         return self.identifier
     
-    # 권한 소지여부를 판단하기 위한 메서드
     def has_perm(self, perm, obj=None):
         return True
     
-    # 앱 라벨을 받아, 해당 앱에 접근 가능한지 파악
     def has_module_perms(self, app_label):
         return True
     
-    # 관리자화면에 접근
     @property
     def is_staff(self):
         return self.is_admin
