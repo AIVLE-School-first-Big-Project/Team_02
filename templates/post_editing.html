@@ -62,96 +62,55 @@
 			</div>
 
 		</div>
-				<section class="section-margin--small mb-5">
-
-				</section>
-				<section class="section-margin--small mb-5">
-					<div class="container">
-					  <div class="row">
-						<div class="mx-auto col-xl-9 col-lg-8 col-md-7">
-						  <section class="mx-auto lattest-product-area pb-40 category-list">
-							<form method="GET">
-								<div class="mx-auto input-group mb-3" style="width:600px;">
-								<input type="text" class="form-control" placeholder="검색어를 입력하세요"  aria-describedby="button-addon2" name="post">
-								<button type ="submit" class="btn btn-lg btn-default">검색</button>
-								</div>
-						  	</form>
-							{% if request.session.username %}
-
-							<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-							  <a href="{% url 'Post:edit' %}" class="link-secondary">글쓰기</a>
-							  </a>
-							</div>
-							{% endif %}
-							<hr>
-							<table class="table table-hover">
-								<thead>
-									<tr>
-										<th scope="col" class="text-center">제목</th>
-										<th scope="col" class="text-center">글쓴이</th>
-										<th scope="col" class="text-center">작성일</th>
-										<th scope="col" class="text-center">조회수</th>
-									</tr>
-								</thead>
-								<tbody>
-									{% for post in info %}
-									<tr>
-										<td style="width: 40%">
-											<!-- 게시물 제목, 답글에 대한 인덴트 적용 -->
-											{{ post.post_idx}} :
-											{{ post.title}}
-											<a class="text-reset"
-												href=""
-											></a>
-										</td>
-										<!-- 작성자, 작성일, 조회수 -->
-										<td style="width: 10%" class="text-center">{{post.id}}</td>
-										<td style="width: 30%" class="text-center">{{post.date}}</td>
-										<td style="width: 10%" class="text-center"></td>
-									</tr>
-									{% empty %}
-									<h4 class ="text-center link-secondary">존재하지 않습니다</h4>
-									{% endfor %}
-								</tbody>
-							</table>
-						  </section>
-				
-						  {% comment %} 페이징 {% endcomment %}
-						  <div>
-							<ul class = "pagination justify-content-center">
-							  {% if info.has_previous %}
-							  <li class="page-item"> <a href="?page=1"> << </a></li>
-							  <li class="page-item"> <a href="?page={{info.previous_page_number}}"> < </a> </li>
-							  {%else%}
-							  <li><a href = "#" class="link-secondary"> << </a></li>
-							  <li><a href = "#"> < </a></li>
-							  {% endif %}
-				
-						
-							  {% for i in info.paginator.page_range %}
-							  {% if i >= info.number|add:-4 and i <= info.number|add:5 %}
-								<li>
-								  <a href = "?page={{i}}">
-									{{i}} </a>
-								  </li>
-							  {%endif%}
-							  {%endfor%}
-				
-				
-							  {% if info.has_next %}
-							  <li><a href="?page={{info.next_page_number}}"> > </a> </li>
-							  <li><a href="?page={{last_page_num}}"> >> </a> </li>
-							  {%else%}
-							  <li><a href = "#"> > </a></li>
-							  <li><a href = "#"> >> </a></li>
-							  {% endif %}
-								</ul>
-							</div>
-						  <!-- End Best Seller -->
-						</div>
-					  </div>
+			
+<!-- ================ category section start ================= -->
+<section class="section-margin--small mb-5">
+	<div class="container">
+		<div class="row">
+			<div class="mx-auto col-xl-9 col-lg-8 col-md-7">
+				<form action="{% url 'Post:edit' %}" method="post" enctype="multipart/form-data">
+					{% csrf_token %}
+					<table class="mx-auto table">
+						<tr>
+							<td>
+								<h4>Title</h4>
+							</td>
+							<td>{{form.title}}</td>
+						</tr>
+						<tr>
+							<td>
+								<h4>시각/청각</h4>
+							</td>
+							<td>{{form.visualhearing}}</td>
+						</tr>
+						<tr>
+							<td>
+								<h4>Picture</h4>
+							</td>
+							<td> {{form.pic}} </td>
+						</tr>
+						<tr>
+							<td>
+								<h4>Body</h4>
+							</td>
+							<td>{{form.body}}</td>
+						</tr>
+					</table>
+					{% if form.errors %} 
+					<span style="color: red">{{ form.errors }} </span> 
+					{% endif %} 
+					
+					<div class="col text-center">
+						<button type="submit" class="btn btn-outline-secondary mx-auto">등록</button>
+						<button class="btn btn-outline-secondary">
+							<a href="{% url 'Post:post' %}">취소</a>
+						</button>
 					</div>
-				</section>
+				</form>
+
+			</div>
+		</div>
+	</div>
 		<script src="{% static 'js/jquery.min.js' %}"></script>
 		<script src="{% static 'js/jquery.dropotron.min.js' %}"></script>
 		<script src="{% static 'js/browser.min.js' %}"></script>
