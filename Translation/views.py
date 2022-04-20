@@ -6,6 +6,9 @@ import threading
 from gtts import gTTS
 import time
 
+from CompoNDecompo.decompose import Decompose
+
+
 def home(request):
     context = {}
     return render(request, 'Translation/translation1 copy.html', context)
@@ -46,6 +49,8 @@ def signlanguage(request):
 def braille(text):
     # 텍스트 to 점자
     context = {'img_path' : '../static/braille/images.jpg'}
+    t=Decompose(text)
+    print(t)
     return JsonResponse(context)
 
 def textlanguage(request):
