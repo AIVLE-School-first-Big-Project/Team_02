@@ -36,7 +36,8 @@
                 data: {'language': selectLanguage},
                 success: function(data){
                     img_path = data['img_path']
-                    document.all('div_id2').innerHTML="<img src='" + img_path + "'>";
+                    console.log(img_path)
+                    document.all('div_id2').innerHTML="<img src='{% get_static_prefix %}bralille_translated/" + img_path + ".png'>";
                 },error: function(e) { 
                     document.all('div_id2').innerHTML="틀렷다"
                 } 
