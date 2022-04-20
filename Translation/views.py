@@ -6,6 +6,9 @@ import threading
 from gtts import gTTS
 import time
 
+from CompoNDecompo.decompose import Decompose
+
+
 def home(request):
     context = {}
     return render(request, 'Translation/translation1 copy.html', context)
@@ -45,14 +48,18 @@ def signlanguage(request):
 
 def braille(text):
     # 텍스트 to 점자
-    context = {'img_path' : '../static/braille/images.jpg'}
-    return JsonResponse(context)
+    t=Decompose(text)
+    p = []
+    for s in t:
+        p.append(s[0])
+    return make_img(p)
 
 def textlanguage(request):
     # 수어 to 텍스트... 
-    text = '2조 화이팅'
+    text = '이조 화이팅'
     language = request.GET.get('language')
     if language == 'braille':
+        text = text.replace(' ', '')
         return braille(text)
     elif language == 'soundlanguage':
         return soundlanguage(text)
@@ -65,3 +72,27 @@ def soundlanguage(text):
     context = {'audio_path' : filename}
     return JsonResponse(context)
 
+from PIL import Image
+def make_img(arr):
+    blank = arr.count('')
+    result_width = (len(arr)-blank) * 164
+    result_height = 231
+    result = Image.new("RGB", (result_width, result_height))
+    turn = 0
+    for i in range(len(arr)):
+        if arr[i] == '':
+            continue
+        if i % 3 == 0:
+            path = f'../Team_02/static/bralille_set/chosung/{arr[i]}.png'
+        elif i % 3 == 1:
+            path = f'../Team_02/static/bralille_set/joongsung/{arr[i]}.png'
+        elif i % 3 == 2:
+            path = f'../Team_02/static/bralille_set/jongsung/{arr[i]}.png'
+        input = Image.open(path)
+        result.paste(im=input, box=(turn*164, 0))
+        turn += 1
+    result.show()
+    filename = time.strftime("%Y%m%d-%H%M%S")
+    result.save(f"./static/bralille_translated/{filename}.png")
+    context = {'img_path' : filename}
+    return JsonResponse(context)
