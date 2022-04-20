@@ -92,7 +92,7 @@ def make_img(arr):
         result.paste(im=input, box=(turn*164, 0))
         turn += 1
     result = result.resize((int(result.width / 5), int(result.height / 5)))
-    result.show()
+    # result.show()
     filename = time.strftime("%Y%m%d-%H%M%S")
     result.save(f"./static/bralille_translated/{filename}.png")
     context = {'img_path' : filename}
