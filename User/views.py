@@ -116,7 +116,7 @@ def find_id(request):
 def show_id(request):
      confirm_email = request.GET.get('confirm_email')
      confirm_id = User.objects.get(email=confirm_email).username
-     context = {'confirm_id' : confirm_id, 'request' : 0}
+     context = {'confirm_id' : confirm_id}
      return JsonResponse(context)
 
 def mypage(request, username):
@@ -163,9 +163,9 @@ def find_pw(request):
                     email = EmailMessage(mail_title, message_data, to=[mail_to])
                     email.send()
                     return redirect('/user/login')
+               context['error'] = '일치하는 정보가 없습니다.'
           except ObjectDoesNotExist:
                context['error'] = '일치하는 정보가 없습니다.'
-               render(request, "User/find_pw.html", context)
      else:
           form = ParamForm()
      context['param_form'] = form

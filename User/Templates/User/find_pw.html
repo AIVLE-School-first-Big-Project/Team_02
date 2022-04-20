@@ -2,8 +2,8 @@
 
 {% block content %}
 
-<div style="background: url('../img/hero.jpg')  repeat center top;padding:5%;display: flex;flex-direction: column;align-items: center;">
-
+<div style="padding:5%;display: flex;flex-direction: column;align-items: center;">
+<p>입력하신 이메일로 새로운 비밀번호를 전송합니다.</p>
 <form method='post' action="{% url 'user:find_pw' %}" style="width:33%;height:30%">{% csrf_token %}
     {% for field in param_form %}
         <p>
