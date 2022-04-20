@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from requests import session
 from .models import User
-# from Post.models import Posting
+from Post.models import Posting
 from .forms import SignupForm, LoginForm, UpdateForm, PasswordVerificationForm, ParamForm
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import authenticate, update_session_auth_hash
@@ -122,10 +122,10 @@ def show_id(request):
 def mypage(request, username):
      user = User.objects.get(username=username)
      context = {}
-     # posts = Posting.objects.filter(id = userindex).values().order_by('-date')
-     # if len(posts) >= 5:
-     #      posts = posts[0:5]
-     # context['posts'] = posts
+     posts = Posting.objects.filter(id = user.id).values().order_by('-date')
+     if len(posts) >= 5:
+          posts = posts[0:5]
+     context['posts'] = posts
      if user:
           context['username'] = user
           return render(request, 'user/mypage.html', context)
