@@ -64,3 +64,21 @@ def soundlanguage(text):
     tts.save(f"./static/audio/{filename}.mp3")
     context = {'audio_path' : filename}
     return JsonResponse(context)
+
+from PIL import Image
+arr = ['ㅇ', 'ㅏ', 'ㄴ']
+def make_img(arr):
+    result_width = len(arr) * 164
+    result_height = 231
+    result = Image.new("RGB", (result_width, result_height))
+    for i in range(len(arr)):
+        if i % 3 == 0:
+            path = f'../Team_02/static/bralille_set/chosung/{arr[i]}.png'
+        elif i % 3 == 1:
+            path = f'../Team_02/static/bralille_set/joongsung/{arr[i]}.png'
+        elif i % 3 == 2:
+            path = f'../Team_02/static/bralille_set/jongsung/{arr[i]}.png'
+        input = Image.open(path)
+        result.paste(im=input, box=(i*164, 0))
+    result.show()
+make_img(arr)
