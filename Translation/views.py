@@ -56,7 +56,7 @@ def braille(text):
 
 def textlanguage(request):
     # 수어 to 텍스트... 
-    text = '이조 화이팅'
+    text = '2조 화이팅'
     language = request.GET.get('language')
     if language == 'braille':
         text = text.replace(' ', '')
@@ -81,6 +81,10 @@ def make_img(arr):
     turn = 0
     for i in range(len(arr)):
         if arr[i] == '':
+            continue
+        if arr[i] in '0123456789.':
+            path = f'../Team_02/static/bralille_set/nums/{arr[i]}.png'
+            turn = 0
             continue
         if i % 3 == 0:
             path = f'../Team_02/static/bralille_set/chosung/{arr[i]}.png'
