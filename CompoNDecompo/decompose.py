@@ -1,10 +1,14 @@
-from .Alphabets import HEAD,TAIL,BODY,FIRST_KOREAN_UNICODE
+from .Alphabets import HEAD,TAIL,BODY,FIRST_KOREAN_UNICODE, NUMBERS
+
+
 def Decompose(text):
     decom_list = []
     for ch in text:
         Uni_Value = ord(ch)
+        if(48<=Uni_Value<=57): 
+            decom_list.append((NUMBERS[Uni_Value-ord(0)]))
         if(Uni_Value==32) : 
-            decom_list.append((' ',[]))
+            decom_list.append((' ',[[]]))
             continue
         if(Uni_Value==46) : 
             decom_list.append(('.',[[]]))
