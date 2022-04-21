@@ -5,6 +5,7 @@ import cv2
 import threading
 from gtts import gTTS
 import time
+from PIL import Image
 
 from CompoNDecompo.decompose import Decompose
 
@@ -36,7 +37,7 @@ def gen(camera):
         frame = camera.get_frame()
         yield(b'--frame\r\n'
               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
-
+    
 @gzip.gzip_page
 def signlanguage(request):
     try:
@@ -48,7 +49,7 @@ def signlanguage(request):
 
 def braille(text):
     # 텍스트 to 점자
-    t=Decompose(text)
+    t = Decompose(text)
     p = []
     for s in t:
         p.append(s[0])
@@ -56,7 +57,7 @@ def braille(text):
 
 def textlanguage(request):
     # 수어 to 텍스트... 
-    text = '이조 화이팅'
+    text = '닦달하다 닭다리'
     language = request.GET.get('language')
     if language == 'braille':
         text = text.replace(' ', '')
@@ -72,8 +73,8 @@ def soundlanguage(text):
     context = {'audio_path' : filename}
     return JsonResponse(context)
 
-from PIL import Image
 def make_img(arr):
+    print('arr :', arr)
     blank = arr.count('')
     result_width = (len(arr)-blank) * 164
     result_height = 231
@@ -96,8 +97,10 @@ def make_img(arr):
         result.paste(im=input, box=(turn*164, 0))
         turn += 1
     result = result.resize((int(result.width / 5), int(result.height / 5)))
-    # result.show()
     filename = time.strftime("%Y%m%d-%H%M%S")
     result.save(f"./static/bralille_translated/{filename}.png")
     context = {'img_path' : filename}
+    # for word in arr:
+    #     for i in len(word):
+            
     return JsonResponse(context)
