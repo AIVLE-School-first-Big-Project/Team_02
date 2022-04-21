@@ -17,7 +17,6 @@ def Decompose(text):
         Uni_Head = Uni_Korean//(21*28)
         Uni_Body = Uni_Korean//28%21
         Uni_Tail = Uni_Korean%28
-        # print(Uni_Head,Uni_Body,Uni_Tail)
         decom_list.append(HEAD[Uni_Head])
         decom_list.append(BODY[Uni_Body])
         decom_list.append(TAIL[Uni_Tail]) 

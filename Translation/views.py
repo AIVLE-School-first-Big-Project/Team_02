@@ -8,7 +8,7 @@ import time
 from PIL import Image
 
 from CompoNDecompo.decompose import Decompose
-
+from CompoNDecompo.Alphabets import HEAD_DOUBLE_CONSONANT,TAIL_DOUBLE_CONSONANT
 
 def home(request):
     context = {}

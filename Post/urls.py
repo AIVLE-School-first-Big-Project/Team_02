@@ -7,4 +7,6 @@ app_name = 'Post'
 urlpatterns = [
     path('', views.post, name='post'),
     path('edit/', views.edit, name='edit'),
+    path('<int:pk>/', views.detail, name = 'detail'),
+
 ]
