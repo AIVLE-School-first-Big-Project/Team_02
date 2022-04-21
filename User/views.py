@@ -126,6 +126,7 @@ def mypage(request, username):
      if len(posts) >= 5:
           posts = posts[0:5]
      context['posts'] = posts
+     print(posts)
      if user:
           context['username'] = user
           return render(request, 'user/mypage.html', context)
