@@ -1,5 +1,5 @@
-from django.shortcuts import redirect, render
-from .models import Posting
+from django.shortcuts import get_object_or_404, redirect, render
+from .models import Chatting, Posting
 from User.models import User
 from django.core.paginator import Paginator
 from .forms import PostForm
@@ -47,3 +47,24 @@ def edit(request):
     else:
         form = PostForm()
     return render(request, '../templates/post_editing.html', {'form' : form})
+
+
+
+def detail(request, pk):
+    result = get_object_or_404(Posting, post_idx = pk)
+    user = User.objects.get(username = result.id)
+
+    if request.method == 'POST':
+        comment = Chatting()
+        comment.username = request.session['username']
+        comment.chatting = request.POST['body']
+        comment.post_idx = Posting.objects.get(post_idx = pk)
+        comment.save()
+
+    comments = Chatting.objects.filter(post_idx = pk)
+    context = {
+        'result' : result, 
+        'user' : user, 
+        'comments' : comments, 
+        }    
+    return render(request, '../templates/post_detail.html', context)

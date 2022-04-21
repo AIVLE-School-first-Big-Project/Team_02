@@ -49,25 +49,30 @@
 										<th scope="col" class="text-center">조회수</th>
 									</tr>
 								</thead>
+								
 								<tbody>
 									{% for post in info %}
+									
 									<tr>
+										
 										<td style="width: 40%">
+											<a href = "{% url 'Post:detail' post.post_idx %}">
 											<!-- 게시물 제목, 답글에 대한 인덴트 적용 -->
 											{{ post.post_idx}} :
 											{{ post.title}}
-											<a class="text-reset"
-												href=""
-											></a>
+										</a>
 										</td>
+
 										<!-- 작성자, 작성일, 조회수 -->
 										<td style="width: 10%" class="text-center">{{post.id}}</td>
 										<td style="width: 30%" class="text-center">{{post.date}}</td>
 										<td style="width: 10%" class="text-center"></td>
 									</tr>
+
 									{% empty %}
 									<h4 class ="text-center link-secondary">존재하지 않습니다</h4>
 									{% endfor %}
+
 								</tbody>
 							</table>
 						  </section>
