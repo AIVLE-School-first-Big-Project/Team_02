@@ -57,7 +57,8 @@ def braille(text):
 
 def textlanguage(request):
     # 수어 to 텍스트... 
-    text = '닦달하다 닭다리'
+    text = '안녕하세요여러분'
+    # text = '닦달하다 닭다리'
     language = request.GET.get('language')
     if language == 'braille':
         text = text.replace(' ', '')
