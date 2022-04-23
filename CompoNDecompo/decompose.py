@@ -1,11 +1,7 @@
-from .Alphabets import HEAD,TAIL,BODY,FIRST_KOREAN_UNICODE, NUMBERS
+from Alphabets import HEAD,TAIL,BODY,FIRST_KOREAN_UNICODE, NUMBERS
 
 
 
-class Alphabet:
-    def __init__():
-        return
-        
 def Decompose(text):
     decom_list = []
     for ch in text:
@@ -26,4 +22,31 @@ def Decompose(text):
         decom_list.append(BODY[Uni_Body])
         decom_list.append(TAIL[Uni_Tail]) 
     return decom_list
+Curr_Status =  0
+HEAD_STATUS =  1
+BODY_STATUS =  2
+TAIL_STATUS =  3
 
+
+def Compose(decom_list):
+    Curr_Status = HEAD_STATUS
+    
+    for jamo in decom_list:
+        letter = ''
+        if(jamo == ' ') : 
+            Curr_Status = HEAD_STATUS
+            continue
+        if(Curr_Status == HEAD_STATUS):
+            pass
+        if(Curr_Status == BODY_STATUS):
+            pass
+        if(Curr_Status == TAIL_STATUS):
+            pass
+
+
+if __name__ == "__main__":
+    text = '한현수라고 합니다'
+    text2 = '제가 직접 만든 패키지 입니다. 본 패캐지는 문장을 점자로 변환하는 과정의 일환으로 개발된 패키지입니다.'
+    print(text)
+    decom=Decompose(text)
+    print(decom)
