@@ -56,7 +56,6 @@ def Compose(decom_list):
             letter = ''
             continue
 
-
         if(Curr_Status == HEAD_STATUS):     # state head
             if(jamo in HEAD): 
                 Curr_Status=BODY_STATUS
@@ -96,8 +95,7 @@ def Compose(decom_list):
                 body = jamo
                 Curr_Status = TAIL_STATUS
 
-
-        if(Letter_Complete):
+        if(Letter_Complete):                # letter concat
             result_text += letter
             Letter_Complete = False
 
