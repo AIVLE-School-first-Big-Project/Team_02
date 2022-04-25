@@ -20,9 +20,14 @@ class VideoCamera(object):
         # 웹캠 켜짐
         self.video = cv2.VideoCapture(0)
         # 프레임 추출
+        # if self.video.isOpened():
         (self.grabbed, self.frame) = self.video.read()
         # 실시간 영상을 위해 스레드 구현
         threading.Thread(target=self.update, args=()).start()
+        # if self.video.isOpened():
+        #     (self.grabbed, self.frame) = self.video.read()
+        #     # 실시간 영상을 위해 스레드 구현
+        #     threading.Thread(target=self.update, args=()).start()
     # 카메라 정지
     def __del__(self):
         self.video.release()
