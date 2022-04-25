@@ -15,19 +15,25 @@ def home(request):
     return render(request, 'Translation/translation1 copy.html', context)
 
 class VideoCamera(object):
+    # 초기 선언
     def __init__(self):
+        # 웹캠 켜짐
         self.video = cv2.VideoCapture(0)
+        # 프레임 추출
         (self.grabbed, self.frame) = self.video.read()
+        # 실시간 영상을 위해 스레드 구현
         threading.Thread(target=self.update, args=()).start()
-
+    # 카메라 정지
     def __del__(self):
         self.video.release()
 
+    # 영상을 jpg 바이너리로 변환하여 리턴
     def get_frame(self):
         image = self.frame
         _, jpeg = cv2.imencode('.jpg', image)
         return jpeg.tobytes()
 
+    # 프레임 추출
     def update(self):
         while True:
             (self.grabbed, self.frame) = self.video.read()

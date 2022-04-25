@@ -43,7 +43,7 @@ def signup(request):
      else:
           form = SignupForm()
           context['signup_form'] = form
-     return render(request, 'User/signup.html', context)
+     return render(request, '../Templates/User/signup.html', context)
 
 def login(request):
     context = {}
