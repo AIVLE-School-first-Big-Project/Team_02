@@ -4,6 +4,8 @@ from Qna import views
 
 app_name = 'Qna'
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('', views.qna, name='qna'),
+    path('Qedit/', views.qna_edit, name='qna_edit'),
+    path('<int:pk>/', views.qna_detail, name = 'qna_detail'),
 
 ]
