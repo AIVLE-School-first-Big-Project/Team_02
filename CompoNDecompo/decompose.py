@@ -113,7 +113,7 @@ def Compose_letter(head,body,tail=''):
 
 
 if __name__ == "__main__":
-    text2 = '제가 직접 만든 패키지 입니다. 본 패캐지는 문장을 점자로 변환하는 과정의 일환으로 개발된 패키지입니다.'
+    text2 = '제가 직접 만든 패키지2 입니다. 본 패캐지는 문장을 점자로 변환하는 과정의 일환으로 개발된 패키지입니다.'
     print(text2)
     decom=Decompose(text2)
     print(decom)
