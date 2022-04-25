@@ -167,7 +167,7 @@ nose @ file:///tmp/build/80754af9/nose_1606773131901/work
 notebook @ file:///C:/ci/notebook_1616443715883/work
 numba @ file:///C:/ci/numba_1616774458845/work
 numexpr @ file:///C:/ci/numexpr_1618856738664/work
-numpy @ file:///C:/ci/numpy_and_numpy_base_1618497418457/work
+numpy==1.22.3
 numpydoc @ file:///tmp/build/80754af9/numpydoc_1605117425582/work
 oauthlib==3.2.0
 olefile==0.46

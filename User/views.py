@@ -67,7 +67,7 @@ def login(request):
  
     context['login_form'] = form
  
-    return render(request, "User/login.html", context)
+    return render(request, "../Templates/User/login.html", context)
 
 def logout(request):
      auth_logout(request)
