@@ -47,20 +47,12 @@ def signlanguage(request):
         print("error")
         pass
 
-# def braille(text):
-#     # 텍스트 to 점자
-#     t = Decompose(text)
-#     print(t)
-#     p = []
-#     for s in t:
-#         p.append(s[0])
-#     return make_img(p)
 
 def textlanguage(request):
     # 수어 to 텍스트... 
-    # text = '안녕하세요 2조 여러분'
+    text = '안녕하세요 2조 여러분'
     # text = '2조 여러분'
-    text = '닦달하다 닭다리'
+    # text = '닦달하다 닭다리'
     # text = '아 이'
     language = request.GET.get('language')
     if language == 'braille':
@@ -79,9 +71,6 @@ def soundlanguage(text):
 
 def braille(text):
     arr = Decompose(text)
-    # result_width, result_height = len(arr) * 164, 231
-    # crop, turn = 0, 0
-    # result = Image.new("L", (result_width, result_height))
     dict = {0:'chosung', 1:'joongsung', 2:'jongsung'}
     display = []
     for word in arr:
@@ -98,26 +87,6 @@ def braille(text):
         path = f'../Team_02/static/bralille_set/{b}.png'
         input = Image.open(path)
         result.paste(im=input, box=(idx*164, 0))
-        
-    # for i in range(len(arr)):
-    #     if (arr[i] == '') or (i % 3 == 0 and arr[i] =='ㅇ'):
-    #         crop += 1
-    #         continue
-    #     if arr[i] in '0123456789.':
-    #         path = f'../Team_02/static/bralille_set/nums/{arr[i]}.png'
-    #         turn = 0
-    #         continue
-        
-    #     elif i % 3 == 0:            
-    #         path = f'../Team_02/static/bralille_set/chosung/{arr[i]}.png'
-    #     elif i % 3 == 1:
-    #         path = f'../Team_02/static/bralille_set/joongsung/{arr[i]}.png'
-    #     elif i % 3 == 2:
-    #         path = f'../Team_02/static/bralille_set/jongsung/{arr[i]}.png'
-        # input = Image.open(path)
-        # result.paste(im=input, box=(turn*164, 0))
-        # turn += 1
-    # result = result.crop((0, 0, (len(arr)-crop)*164, 231))
     result = result.resize((int(result.width / 5), int(result.height / 5)))
     filename = time.strftime("%Y%m%d-%H%M%S")
     result.save(f"./static/bralille_translated/{filename}.png")
