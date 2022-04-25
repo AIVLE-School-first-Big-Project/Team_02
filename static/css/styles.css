@@ -150,7 +150,6 @@ box-sizing: content-box; }
 * on OS X. */
 input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webkit-search-decoration { -webkit-appearance: none; }
 /* * Removes inner padding and border in Firefox 3+. */
-button::-moz-focus-inner, input::-moz-focus-inner { border: 0; padding: 0; }
 /* * 1. Removes default vertical scrollbar in IE 6/7/8/9.
 * 2. Improves readability and alignment in all browsers. */
 textarea { overflow: auto; /* 1 */

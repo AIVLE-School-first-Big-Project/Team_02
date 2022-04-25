@@ -15,109 +15,121 @@
 	  height: 275px;
 	  object-fit: cover;
 	  border-radius:calc(1rem - 1px);}
+	
+	  input{
+      margin:0;
+    }
+    input[type="text"]{
+      width:70%;
+      height:100%;
+      border:none;
+      font-size:1em;
+      padding-left: 5px;
+      font-style: oblique;
+      display:inline;
+      outline:none;
+      box-sizing: border-box;
+      color:black;
+
+    }
+    input[type=button]{
+      width: 30%;
+      height:100%;
+      background-color: lightgray;
+      border:none;
+      background-color: white;
+      font-size:1em;
+      color:#042AaC;
+      outline:none;
+      display:inline;
+      margin-left: -10px;
+      box-sizing: border-box;
+    }
+    input[type=button]:hover{
+      background-color: lightgray;
+    }
   </style>
+  
 <html>
 	{% block content %}
-				<section class="section-margin--small mb-5">
-
+	<body style="justify-content : center; text-align: center;">
+		<section class="section-margin--small mb-5" >
+			<div class="container" style="margin-top: 30px;">
+				<section class="mx-auto lattest-product-area pb-40">
+					<select style="margin-right:15px">
+						<option value="vision" selected>시각 자료</option>
+						<option value="hearing">청각 자료</option>
+					</select>
+						<input type="text" style="width:500px;" placeholder="검색어를 입력하세요" name="post">
+						<button type ="submit"  class="btn btn-default">검색</button>
+						{% if request.session.username %}
+							<a href="{% url 'Post:edit' %}" style="float: right;">글쓰기</a>
+						{% endif %}
+					<hr>
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th scope="col" class="text-center">제목</th>
+								<th scope="col" class="text-center">글쓴이</th>
+								<th scope="col" class="text-center">작성일</th>
+								<th scope="col" class="text-center">조회수</th>
+							</tr>
+						</thead>
+						<tbody>
+						{% for post in info %}
+						<tr>
+							<td style="width: 40%">
+								<a href = "{% url 'Post:detail' post.post_idx %}">
+									<!-- 게시물 제목, 답글에 대한 인덴트 적용 -->
+									{{ post.post_idx}} :
+									{{ post.title}}
+								</a>
+							</td>
+									<!-- 작성자, 작성일, 조회수 -->
+							<td style="width: 10%" class="text-center">{{post.id}}</td>
+							<td style="width: 30%" class="text-center">{{post.date}}</td>
+							<td style="width: 10%" class="text-center"></td>
+						</tr>
+						{% empty %}
+						<h4 class ="text-center link-secondary">존재하지 않습니다</h4>
+						{% endfor %}
+						</tbody>
+					</table>
 				</section>
-				<section class="section-margin--small mb-5">
-					<div class="container" style="margin:auto;position:absolute;top:30%;left:30%">
-					  <div class="row">
-						<div class="mx-auto col-xl-9 col-lg-8 col-md-7">
-						  <section class="mx-auto lattest-product-area pb-40 category-list">
-							<form method="GET">
-								<div class="mx-auto input-group mb-3" style="width:600px;">
-								<input type="text" class="form-control" placeholder="검색어를 입력하세요"  aria-describedby="button-addon2" name="post">
-								<button type ="submit" class="btn btn-lg btn-default">검색</button>
-								</div>
-						  	</form>
-							{% if request.session.username %}
-
-							<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-							  <a href="{% url 'Post:edit' %}" class="link-secondary">글쓰기</a>
-							  </a>
-							</div>
-							{% endif %}
-							<hr>
-							<table class="table table-hover">
-								<thead>
-									<tr>
-										<th scope="col" class="text-center">제목</th>
-										<th scope="col" class="text-center">글쓴이</th>
-										<th scope="col" class="text-center">작성일</th>
-										<th scope="col" class="text-center">조회수</th>
-									</tr>
-								</thead>
-								
-								<tbody>
-									{% for post in info %}
-									
-									<tr>
-										
-										<td style="width: 40%">
-											<a href = "{% url 'Post:detail' post.post_idx %}">
-											<!-- 게시물 제목, 답글에 대한 인덴트 적용 -->
-											{{ post.post_idx}} :
-											{{ post.title}}
-										</a>
-										</td>
-
-										<!-- 작성자, 작성일, 조회수 -->
-										<td style="width: 10%" class="text-center">{{post.id}}</td>
-										<td style="width: 30%" class="text-center">{{post.date}}</td>
-										<td style="width: 10%" class="text-center"></td>
-									</tr>
-
-									{% empty %}
-									<h4 class ="text-center link-secondary">존재하지 않습니다</h4>
-									{% endfor %}
-
-								</tbody>
-							</table>
-						  </section>
-				
-						  {% comment %} 페이징 {% endcomment %}
-						  <div>
-							<ul class = "pagination justify-content-center">
-							  {% if info.has_previous %}
-							  <li class="page-item"> <a href="?page=1"> << </a></li>
-							  <li class="page-item"> <a href="?page={{info.previous_page_number}}"> < </a> </li>
-							  {%else%}
-							  <li><a href = "#" class="link-secondary"> << </a></li>
-							  <li><a href = "#"> < </a></li>
-							  {% endif %}
-				
-						
-							  {% for i in info.paginator.page_range %}
-							  {% if i >= info.number|add:-4 and i <= info.number|add:5 %}
-								<li>
-								  <a href = "?page={{i}}">
-									{{i}} </a>
-								  </li>
-							  {%endif%}
-							  {%endfor%}
-				
-				
-							  {% if info.has_next %}
-							  <li><a href="?page={{info.next_page_number}}"> > </a> </li>
-							  <li><a href="?page={{last_page_num}}"> >> </a> </li>
-							  {%else%}
-							  <li><a href = "#"> > </a></li>
-							  <li><a href = "#"> >> </a></li>
-							  {% endif %}
-								</ul>
-							</div>
-						  <!-- End Best Seller -->
-						</div>
-					  </div>
-					</div>
-				</section>
-		<script src="{% static 'js/jquery.min.js' %}"></script>
-		<script src="{% static 'js/jquery.dropotron.min.js' %}"></script>
-		<script src="{% static 'js/browser.min.js' %}"></script>
-		<script src="{% static 'js/breakpoints.min.js' %}"></script>
-		<script src="{% static 'js/util.js' %}"></script>
-		<script src="{% static 'js/main.js' %}"></script>
-		{% endblock %}
+				{% comment %} 페이징 {% endcomment %}
+				<div>
+					<ul class = "pagination justify-content-center">
+					{% if info.has_previous %}
+					<li class="page-item"> <a href="?page=1"> << </a></li>
+					<li class="page-item"> <a href="?page={{info.previous_page_number}}"> < </a> </li>
+					{%else%}
+					<li><a href = "#" class="link-secondary"> << </a></li>
+					<li><a href = "#"> < </a></li>
+					{% endif %}
+					{% for i in info.paginator.page_range %}
+					{% if i >= info.number|add:-4 and i <= info.number|add:5 %}
+					<li>
+						<a href = "?page={{i}}">{{i}} </a>
+					</li>
+					{%endif%}
+					{%endfor%}
+					{% if info.has_next %}
+					<li><a href="?page={{info.next_page_number}}"> > </a> </li>
+					<li><a href="?page={{last_page_num}}"> >> </a> </li>
+					{%else%}
+					<li><a href = "#"> > </a></li>
+					<li><a href = "#"> >> </a></li>
+					{% endif %}
+					</ul>
+				</div>			
+			</div>
+		</section>
+	</body>
+	<script src="{% static 'js/jquery.min.js' %}"></script>
+	<script src="{% static 'js/jquery.dropotron.min.js' %}"></script>
+	<script src="{% static 'js/browser.min.js' %}"></script>
+	<script src="{% static 'js/breakpoints.min.js' %}"></script>
+	<script src="{% static 'js/util.js' %}"></script>
+	<script src="{% static 'js/main.js' %}"></script>
+	{% endblock %}
 </html>

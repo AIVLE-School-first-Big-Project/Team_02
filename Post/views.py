@@ -6,12 +6,10 @@ from .forms import PostForm
 # Create your views here.
 def post(request):
     post_list = Posting.objects.all()
-
-
     now_page =int(request.GET.get('page', 1))
     post_list = post_list.order_by('-post_idx')
                 # 포스트 , 보여줄 게시글 개수
-    p = Paginator(post_list, 6)
+    p = Paginator(post_list, 10)
     info = p.get_page(now_page)
 
     # start_page = (now_page - 1) // 3 * 3 + 1
