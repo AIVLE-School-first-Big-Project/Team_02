@@ -58,10 +58,11 @@
 							<option value="vision" selected>시각 자료</option>
 							<option value="hearing">청각 자료</option>
 						</select>
-							<input type="text" style="width:40%;" placeholder="검색어를 입력하세요" name="post">
+							<input type="text" style="width:40%;" placeholder="검색어를 입력하세요" name="show">
 							<button type ="submit"  class="btn btn-default">검색</button>
+
 							{% if request.session.username %}
-								<a href="{% url 'Post:edit' %}" style="float: right;">글쓰기</a>
+								<a href="{% url 'Post:form' %}" style="float: right;">글쓰기</a>
 							{% endif %}
 					<hr>
 					<table class="table table-hover">
