@@ -18,12 +18,6 @@ from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
 
 
-def if_session(request):
-     username = request.session.get('username')
-     if username:
-          user = User.objects.get(username = username)
-          return user.username
-          
 def signup(request):
      context = {}
      if request.method == 'POST':
@@ -43,7 +37,7 @@ def signup(request):
      else:
           form = SignupForm()
           context['signup_form'] = form
-     return render(request, 'User/signup.html', context)
+     return render(request, '../Templates/User/signup.html', context)
 
 def login(request):
     context = {}
@@ -67,7 +61,7 @@ def login(request):
  
     context['login_form'] = form
  
-    return render(request, "User/login.html", context)
+    return render(request, "../templates/User/login.html", context)
 
 def logout(request):
      auth_logout(request)
@@ -86,11 +80,11 @@ def delete(request, username):
                     return redirect('/main')
           else:
                context['error'] = '회원정보가 일치하지 않습니다.'
-               render(request, "User/delete.html", context) 
+               render(request, "../templates/User/delete.html", context) 
      else:
           form = PasswordVerificationForm(instance=request.user)
      context['password_form'] = form
-     return render(request, "User/delete.html", context)
+     return render(request, "../templates/User/delete.html", context)
 
 def update(request, username):
      context = {}
@@ -108,10 +102,10 @@ def update(request, username):
           form2 = PasswordChangeForm(request.user)
      context['update_form'] = form
      context['pwupdate_form'] = form2
-     return render(request, 'User/update.html', context)
+     return render(request, '../templates/User/update.html', context)
 
 def find_id(request):
-     return render(request, 'User/find_id.html')
+     return render(request, '../templates/User/find_id.html')
 
 def show_id(request):
      confirm_email = request.GET.get('confirm_email')
@@ -126,9 +120,10 @@ def mypage(request, username):
      if len(posts) >= 5:
           posts = posts[0:5]
      context['posts'] = posts
+     print(posts)
      if user:
           context['username'] = user
-          return render(request, 'user/mypage.html', context)
+          return render(request, '../templates/User/mypage.html', context)
      else:
           return redirect('/main')
 
@@ -169,8 +164,4 @@ def find_pw(request):
      else:
           form = ParamForm()
      context['param_form'] = form
-     return render(request, "User/find_pw.html", context)
-
-
-def test(request):
-     return render(request, "../templates/base.html")
+     return render(request, "../templates/User/find_pw.html", context)

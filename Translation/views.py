@@ -5,6 +5,7 @@ import cv2
 import threading
 from gtts import gTTS
 import time
+from PIL import Image
 
 from CompoNDecompo.decompose import Decompose
 from CompoNDecompo.Alphabets import HEAD_DOUBLE_CONSONANT,TAIL_DOUBLE_CONSONANT
@@ -14,19 +15,30 @@ def home(request):
     return render(request, 'Translation/translation1 copy.html', context)
 
 class VideoCamera(object):
+    # 초기 선언
     def __init__(self):
+        # 웹캠 켜짐
         self.video = cv2.VideoCapture(0)
+        # 프레임 추출
+        # if self.video.isOpened():
         (self.grabbed, self.frame) = self.video.read()
+        # 실시간 영상을 위해 스레드 구현
         threading.Thread(target=self.update, args=()).start()
-
+        # if self.video.isOpened():
+        #     (self.grabbed, self.frame) = self.video.read()
+        #     # 실시간 영상을 위해 스레드 구현
+        #     threading.Thread(target=self.update, args=()).start()
+    # 카메라 정지
     def __del__(self):
         self.video.release()
 
+    # 영상을 jpg 바이너리로 변환하여 리턴
     def get_frame(self):
         image = self.frame
         _, jpeg = cv2.imencode('.jpg', image)
         return jpeg.tobytes()
 
+    # 프레임 추출
     def update(self):
         while True:
             (self.grabbed, self.frame) = self.video.read()
@@ -36,7 +48,7 @@ def gen(camera):
         frame = camera.get_frame()
         yield(b'--frame\r\n'
               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
-
+    
 @gzip.gzip_page
 def signlanguage(request):
     try:
@@ -46,17 +58,13 @@ def signlanguage(request):
         print("error")
         pass
 
-def braille(text):
-    # 텍스트 to 점자
-    t=Decompose(text)
-    p = []
-    for s in t:
-        p.append(s[0])
-    return make_img(p)
 
 def textlanguage(request):
     # 수어 to 텍스트... 
-    text = '이조 화이팅'
+    text = '안녕하세요 2조 여러분'
+    # text = '2조 여러분'
+    # text = '닦달하다 닭다리'
+    # text = '아 이'
     language = request.GET.get('language')
     if language == 'braille':
         text = text.replace(' ', '')
@@ -72,26 +80,25 @@ def soundlanguage(text):
     context = {'audio_path' : filename}
     return JsonResponse(context)
 
-from PIL import Image
-def make_img(arr):
-    blank = arr.count('')
-    result_width = (len(arr)-blank) * 164
-    result_height = 231
-    result = Image.new("RGB", (result_width, result_height))
-    turn = 0
-    for i in range(len(arr)):
-        if arr[i] == '':
-            continue
-        if i % 3 == 0:
-            path = f'../Team_02/static/bralille_set/chosung/{arr[i]}.png'
-        elif i % 3 == 1:
-            path = f'../Team_02/static/bralille_set/joongsung/{arr[i]}.png'
-        elif i % 3 == 2:
-            path = f'../Team_02/static/bralille_set/jongsung/{arr[i]}.png'
+def braille(text):
+    arr = Decompose(text)
+    dict = {0:'chosung', 1:'joongsung', 2:'jongsung'}
+    display = []
+    for word in arr:
+        for idx, syllable in enumerate(word):
+            if (syllable == '') or (idx == 0 and syllable =='ㅇ'):
+                continue
+            elif syllable in '0123456789.':
+                display.append(f'nums/{syllable}')
+            else:
+                display.append(f'{dict[idx%3]}/{syllable}')
+    result_width, result_height = len(display) * 164, 231
+    result = Image.new("L", (result_width, result_height))
+    for idx, b in enumerate(display):
+        path = f'../Team_02/static/bralille_set/{b}.png'
         input = Image.open(path)
-        result.paste(im=input, box=(turn*164, 0))
-        turn += 1
-    result.show()
+        result.paste(im=input, box=(idx*164, 0))
+    result = result.resize((int(result.width / 5), int(result.height / 5)))
     filename = time.strftime("%Y%m%d-%H%M%S")
     result.save(f"./static/bralille_translated/{filename}.png")
     context = {'img_path' : filename}

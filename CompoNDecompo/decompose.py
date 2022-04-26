@@ -1,12 +1,11 @@
 
-
-
 def Decompose(text: str) -> list:
     """
     When it gets Korean text, it seperates every character based on the unicode
     """
-    decom_list = []
+    sentence = []
     for ch in text:
+        decom_list = []
         Uni_Value = ord(ch)
         if(48<=Uni_Value<=57): 
             decom_list.append((NUMBERS[Uni_Value-ord('0')]))
@@ -19,7 +18,8 @@ def Decompose(text: str) -> list:
             decom_list.append(get_jamo_HEAD(Uni_Head))
             decom_list.append(get_jamo_BODY(Uni_Body))
             decom_list.append(get_jamo_TAIL(Uni_Tail)) 
-    return decom_list
+        sentence.append(decom_list)
+    return sentence
 
 
 

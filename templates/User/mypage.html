@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div style="padding:5%;display: flex;flex-direction: column;align-items: center;">
+    <div style="width:100%">
+        <div class="left" style="width: 50%;float: left; box-sizing: content-box;margin:auto;display: flex;flex-direction: column;align-items: center;">
+            <strong><h2>MY PAGE</h2></strong><br>
+            <h3>ID : {{ user.username }}</h3><br>
+            <h3>Name : {{ user.name }}</h3><br>
+            <h3>Email : {{ user.email }}</h3><br>
+            <div>
+                <div class="left" style="width: 50%;float: left; box-sizing: border-box;margin:auto;display: flex;flex-direction: column;align-items: center;">
+                    <a href="{% url 'user:update' user.username %}">
+                        <button class="btn btn-success" 
+                                style="background-color:white;border: solid 1px #c2c7cc;border-radius: 0.35em;padding: 0.8em 2em 0.8em 2em;cursor: pointer;margin-right:0.75em">
+                        <strong>회원 정보 수정</strong></button>
+                    </a>
+                </div>
+                <div class="right" style="width: 50%;float: left; box-sizing: border-box;margin:auto;display: flex;flex-direction: column;align-items: center;">
+                    <a href="{% url 'user:delete' user.username %}">
+                        <button class="btn btn-success" 
+                                style="background-color:white;border: solid 1px #c2c7cc;border-radius: 0.35em;padding: 0.8em 2em 0.8em 2em;cursor: pointer;margin-left:0.75em">
+                        <strong>회원탈퇴</strong></button>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="right" style="width: 50%;float: left; box-sizing: content-box;margin:auto;display: flex;flex-direction: column;align-items: center;">
+            <strong><h2>최근 작성글</h2></strong><br>
+            {% for post in posts %}
+                <strong style="font-size:20px;color:white;">
+                    <h3><a href="{% url 'Post:detail' post.post_idx %}" style="color:black">
+                        {{ post.title }}
+                    </a></h3>
+                </strong><br>
+            {% endfor %}
+        </div>
+    </div>
+    </div>
+{% endblock %}
