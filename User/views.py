@@ -43,7 +43,7 @@ def signup(request):
      else:
           form = SignupForm()
           context['signup_form'] = form
-     return render(request, 'User/signup.html', context)
+     return render(request, '../Templates/User/signup.html', context)
 
 def login(request):
     context = {}
@@ -67,7 +67,7 @@ def login(request):
  
     context['login_form'] = form
  
-    return render(request, "User/login.html", context)
+    return render(request, "../templates/User/login.html", context)
 
 def logout(request):
      auth_logout(request)
@@ -126,6 +126,7 @@ def mypage(request, username):
      if len(posts) >= 5:
           posts = posts[0:5]
      context['posts'] = posts
+     print(posts)
      if user:
           context['username'] = user
           return render(request, 'user/mypage.html', context)
