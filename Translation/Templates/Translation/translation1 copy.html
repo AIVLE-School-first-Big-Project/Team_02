@@ -52,6 +52,15 @@
         $(div_id).html("<p>Select Language</p>");
         document.getElementById('from-button').setAttribute("onclick", "video_on()");
         document.getElementById('from-button').innerText = 'Camera On';
+        $.ajax({
+            url: '{% url 'Translation:delcam' %}',
+            type: "GET",
+            success: function(){
+                console.log('success')
+            },error: function(e) { 
+                console.log('error')
+            } 
+        });
     }
 </script>
 <style>

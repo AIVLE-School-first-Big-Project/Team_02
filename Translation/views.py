@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.decorators import gzip
-from django.http import StreamingHttpResponse, JsonResponse
+from django.http import StreamingHttpResponse, JsonResponse, HttpResponse
 import cv2
 import threading
 from gtts import gTTS
@@ -13,6 +13,7 @@ from CompoNDecompo.Alphabets import HEAD_DOUBLE_CONSONANT,TAIL_DOUBLE_CONSONANT
 def home(request):
     context = {}
     return render(request, 'Translation/translation1 copy.html', context)
+    # return render(request, '../templates/translation.html', context)
 
 class VideoCamera(object):
     # 초기 선언
@@ -20,14 +21,14 @@ class VideoCamera(object):
         # 웹캠 켜짐
         self.video = cv2.VideoCapture(0)
         # 프레임 추출
-        # if self.video.isOpened():
-        (self.grabbed, self.frame) = self.video.read()
-        # 실시간 영상을 위해 스레드 구현
-        threading.Thread(target=self.update, args=()).start()
-        # if self.video.isOpened():
-        #     (self.grabbed, self.frame) = self.video.read()
-        #     # 실시간 영상을 위해 스레드 구현
-        #     threading.Thread(target=self.update, args=()).start()
+        # # if self.video.isOpened():
+        # (self.grabbed, self.frame) = self.video.read()
+        # # 실시간 영상을 위해 스레드 구현
+        # threading.Thread(target=self.update, args=()).start()
+        if self.video.isOpened():
+            (self.grabbed, self.frame) = self.video.read()
+            # 실시간 영상을 위해 스레드 구현
+            threading.Thread(target=self.update, args=()).start()
     # 카메라 정지
     def __del__(self):
         self.video.release()
@@ -43,6 +44,12 @@ class VideoCamera(object):
         while True:
             (self.grabbed, self.frame) = self.video.read()
 
+def delcam(request):
+    cap = cv2.VideoCapture(0)
+    cap.release()
+    cv2.destroyAllWindows()
+    return HttpResponse()
+    
 def gen(camera):
     while True:
         frame = camera.get_frame()
