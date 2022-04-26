@@ -4,7 +4,8 @@ from User.models import User
 from django.core.paginator import Paginator
 from .forms import PostForm
 # Create your views here.
-def post(request):
+def show(request):
+
     post_list = Posting.objects.all()
     now_page =int(request.GET.get('page', 1))
     post_list = post_list.order_by('-post_idx')
@@ -29,23 +30,40 @@ def post(request):
         'now_page' : now_page,
         'last_page_num' : last_page_num
     }
-    return render(request, '../templates/posting.html', context)
+    return render(request, '../templates/post.html', context)
 
 
-def edit(request):
+def form(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
-        print(form)
         if form.is_valid():
             posting = form.save(commit=False)
             user = User.objects.get(username = request.session['username'])
             posting.id = user
             posting.save()
-            return redirect( '/post/')   
+            return redirect('/post/')
     else:
         form = PostForm()
-    return render(request, '../templates/post_editing.html', {'form' : form})
 
+    return render(
+        request, '../templates/post_posting.html', {'form' : form}
+    )
+
+
+def edit(request, pk):
+    posting = Posting.objects.get(post_idx = pk)
+    
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES, instance=posting)
+        if form.is_valid():
+            posting.save()
+            return redirect('/post/'+str(pk)+'/')
+    else:
+        form = PostForm(instance=posting)
+
+    return render(
+            request, '../templates/post_editing.html', {'form':form, 'pk' : pk}
+        )
 
 
 def detail(request, pk):
@@ -66,3 +84,12 @@ def detail(request, pk):
         'comments' : comments, 
         }    
     return render(request, '../templates/post_detail.html', context)
+
+
+
+
+
+def delete(request, pk):
+    post = Posting.objects.get(post_idx = pk)
+    post.delete()
+    return redirect('/post/')

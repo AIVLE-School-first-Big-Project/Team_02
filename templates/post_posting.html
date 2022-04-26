@@ -14,7 +14,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="mx-auto col-xl-9 col-lg-8 col-md-7">
-				<form method="post" enctype="multipart/form-data">
+				<form action="{% url 'Post/form/' %}" method="post" enctype="multipart/form-data">
 					{% csrf_token %}
 					<table class="mx-auto table">
 						<tr>
@@ -47,9 +47,9 @@
 					{% endif %} 
 					
 					<div class="col text-center">
-						<button type="submit" class="btn btn-outline-secondary mx-auto">수정</button>
+						<button type="submit" class="btn btn-outline-secondary mx-auto">등록</button>
 						<button class="btn btn-outline-secondary">
-							<a href="{% url 'Post:detail' pk %}">취소</a>
+							<a href="{% url 'Post:show' %}">취소</a>
 						</button>
 					</div>
 				</form>
