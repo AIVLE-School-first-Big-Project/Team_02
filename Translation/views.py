@@ -6,9 +6,11 @@ import threading
 from gtts import gTTS
 import time
 from PIL import Image
+import os
 
 from CompoNDecompo.decompose import Decompose
 from CompoNDecompo.Alphabets import HEAD_DOUBLE_CONSONANT,TAIL_DOUBLE_CONSONANT
+script_dir = os.path.dirname(__file__)
 
 def home(request):
     context = {}
@@ -104,10 +106,11 @@ def braille(text):
     result = Image.new("L", (result_width, result_height))
     for idx, b in enumerate(display):
         path = f'../static/bralille_set/{b}.png'
-        input = Image.open(path)
+        # input = Image.open(path)
+        input = Image.open(os.path.join('../', script_dir, path))
         result.paste(im=input, box=(idx*164, 0))
     result = result.resize((int(result.width / 5), int(result.height / 5)))
     filename = time.strftime("%Y%m%d-%H%M%S")
-    result.save(f"../static/bralille_translated/{filename}.png")
+    result.save(f"./static/bralille_translated/{filename}.png")
     context = {'img_path' : filename}
     return JsonResponse(context)
