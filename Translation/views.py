@@ -86,7 +86,7 @@ def soundlanguage(text):
     # 텍스트 to 음성
     tts = gTTS(text=text, lang='ko')
     filename = time.strftime("%Y%m%d-%H%M%S")
-    tts.save(f"../static/audio/{filename}.mp3")
+    tts.save(os.path.join('../', script_dir, f"../static/audio/{filename}.mp3"))
     context = {'audio_path' : filename}
     return JsonResponse(context)
 
