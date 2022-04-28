@@ -111,6 +111,8 @@ def braille(text):
         result.paste(im=input, box=(idx*164, 0))
     result = result.resize((int(result.width / 5), int(result.height / 5)))
     filename = time.strftime("%Y%m%d-%H%M%S")
-    result.save(f"./static/bralille_translated/{filename}.png")
+    # result.save(f"../static/bralille_translated/{filename}.png")
+    save_path = f"../static/bralille_translated/{filename}.png"
+    result.save(os.path.join(script_dir, save_path))
     context = {'img_path' : filename}
     return JsonResponse(context)
