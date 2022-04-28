@@ -84,7 +84,7 @@ def soundlanguage(text):
     # 텍스트 to 음성
     tts = gTTS(text=text, lang='ko')
     filename = time.strftime("%Y%m%d-%H%M%S")
-    tts.save(f"./static/audio/{filename}.mp3")
+    tts.save(f"../static/audio/{filename}.mp3")
     context = {'audio_path' : filename}
     return JsonResponse(context)
 
@@ -103,11 +103,11 @@ def braille(text):
     result_width, result_height = len(display) * 164, 231
     result = Image.new("L", (result_width, result_height))
     for idx, b in enumerate(display):
-        path = f'../Team_02/static/bralille_set/{b}.png'
+        path = f'../static/bralille_set/{b}.png'
         input = Image.open(path)
         result.paste(im=input, box=(idx*164, 0))
     result = result.resize((int(result.width / 5), int(result.height / 5)))
     filename = time.strftime("%Y%m%d-%H%M%S")
-    result.save(f"./static/bralille_translated/{filename}.png")
+    result.save(f"../static/bralille_translated/{filename}.png")
     context = {'img_path' : filename}
     return JsonResponse(context)
