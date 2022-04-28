@@ -113,6 +113,6 @@ def braille(text):
     filename = time.strftime("%Y%m%d-%H%M%S")
     # result.save(f"../static/bralille_translated/{filename}.png")
     save_path = f"../static/bralille_translated/{filename}.png"
-    result.save(os.path.join(script_dir, save_path))
+    result.save(os.path.join('../', script_dir, save_path))
     context = {'img_path' : filename}
     return JsonResponse(context)
