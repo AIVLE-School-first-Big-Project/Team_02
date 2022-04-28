@@ -1,4 +1,4 @@
-from Alphabets import HEAD,TAIL,BODY,\
+from .Alphabets import HEAD,TAIL,BODY,\
                       FIRST_KOREAN_UNICODE,LAST_KOREAN_UNICODE,\
                       NUM_BODY,NUM_TAIL,\
                       TAIL_DOUBLE,TAIL_SINGLE,\

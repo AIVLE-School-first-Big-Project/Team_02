@@ -15,19 +15,11 @@
 	<body style="justify-content : center; text-align: center;">
     <section class="section-margin--small mb-5">
       <div class="container">
-            <section class="lattest-product-area pb-40 category-list">
-              <div class="row" style="justify-content:center;">
+            <div class="row" style="justify-content:center;">
 
                 {% comment %} 게시판 시작 {% endcomment %}
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                    <div>
-                    {% comment %} 해당 게시판을 작성한 사용자만 수정/삭제 버튼 활성화 {% endcomment %}
-                    {% if request.session.user_id == user.user_id %}
-                    <a href="" class="link-secondary">수정</a>
-                    <a href="" class="link-secondary">삭제</a>
-                    {% endif %}
-                    <a href="{% url 'Post:post' %}" class="link-secondary">목록</a>
-                  </div>
+                  
                 </div>
                 <table class="table">
                   <tr>
@@ -36,8 +28,8 @@
                   <tr>
                     <td> 
                       {% if result.pic %}
-                      <img src="{{ result.pic }}" class="img-responsive left-block"
-                        style="width:200px; height:200px;" alt="/static/img/hero.jpg"> 
+                      <img src="/media/{{ result.pic }}" class="img-responsive left-block"
+                        style="width:200px; height:200px;"> 
                       {% endif %}
                     </td>
                   </tr>
@@ -45,14 +37,24 @@
                     <td style="text-align: left;"><span> {{result.body}} </span></td>
                   </tr>
                 </table>
+              <div style="display:flex">
+                {% comment %} 해당 게시판을 작성한 사용자만 수정/삭제 버튼 활성화 {% endcomment %}
+
+                {% ifequal request.session.username result.id %}
+                <a href="{%url 'Post:edit' result.post_idx %}" class="link-secondary">수정</a>
+                <a href="{%url 'Post:delete' result.post_idx %}" class="link-secondary">삭제</a>
+                {% else %}
+                <a href="{% url 'Post:show' %}" class="link-secondary">목록</a>
+                {% endifequal %}
               </div>
-            </section>
-            <hr>
+            </div>
+
             <h1 style="text-align: left;">comment</h1>
 
             {% comment %} 로그인한 회원만 댓글 작성 가능 {% endcomment %}
             {% if request.session.username %}
             <form method="POST">
+              {% csrf_token %}
               <textarea class="form-control" rows="3" name="body"></textarea>
               <button type="submit" class="btn btn-default btn-lg float-right">등록</button>
             </form>
@@ -63,7 +65,7 @@
               {% for comment in comments %}
               <tr>
                 <td>
-                  <div class="">
+                  <div class="container" style="display: flex;justify-content: space-between;text-align: start;">
                     <p><span class="glyphicon glyphicon-user"> </span>{{comment.username}}</p>
                     <p> {{comment.chatting}} </p>
                     <p class="text-secondary"> <small> {{comment.date}} </small> </p>
