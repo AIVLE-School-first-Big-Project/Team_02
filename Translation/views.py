@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.decorators import gzip
-from django.http import StreamingHttpResponse, JsonResponse, HttpResponse
+from django.http import StreamingHttpResponse, JsonResponse
 import cv2
 import threading
 from gtts import gTTS
@@ -12,7 +12,6 @@ from CompoNDecompo.Alphabets import HEAD_DOUBLE_CONSONANT,TAIL_DOUBLE_CONSONANT
 
 def home(request):
     context = {}
-    # return render(request, 'Translation/translation1 copy.html', context)
     return render(request, '../templates/translation.html', context)
 
 class VideoCamera(object):
@@ -38,8 +37,6 @@ class VideoCamera(object):
         except:
             cap = cv2.VideoCapture(0)
             cap.release()
-            cv2.destroyAllWindows()
-            print('error')
             return
             
 
@@ -62,11 +59,9 @@ def gen(camera):
 
 @gzip.gzip_page
 def signlanguage(request):
-    status = request.GET.get('status')
-    # print('sign status : ', status)
     try:
         cam = VideoCamera()
-        return StreamingHttpResponse(gen(cam, status), content_type="multipart/x-mixed-replace;boundary=frame")
+        return StreamingHttpResponse(gen(cam), content_type="multipart/x-mixed-replace;boundary=frame")
     except:
         print("error")
         pass
