@@ -13,7 +13,7 @@
         var selectLanguage = language.options[language.selectedIndex].value;
         if (selectLanguage == 'soundlanguage'){
             $.ajax({
-                url: '{% url 'Translation:textlanguage' %}',
+                url: "{% url 'Translation:textlanguage' %}",
                 type: "GET",
                 dataType: "json",
                 data: {'language': selectLanguage},
@@ -26,7 +26,7 @@
             });
         }else if (selectLanguage == 'braille'){
             $.ajax({
-                url: '{% url 'Translation:textlanguage' %}',
+                url: "{% url 'Translation:textlanguage' %}",
                 type: "GET",
                 dataType: "json",
                 data: {'language': selectLanguage},
@@ -43,23 +43,36 @@
         }
     }
     function video_on(){
-        $(div_id).html("<img src='http://127.0.0.1:8000/translation/signlanguage' style='width:640px; height:360px;top:10%;margin:5px;border:3px solid #c2c7cc; border-radius: 7px;'/>");
-        // $(div_id).html("<img src='http://54.177.49.21:8000/translation/signlanguage' style='width:640px; height:360px;top:10%;margin:5px;border:3px solid #c2c7cc; border-radius: 7px;'/>");
-        document.getElementById('from-button').setAttribute("onclick", "video_off()");
-        document.getElementById('from-button').innerText = 'Translate';
+        $(div_id).html("<img src='http://127.0.0.1:8000/translation/signlanguage/?status=true' style='width:640px; height:360px;top:10%;margin:5px;border:3px solid #c2c7cc; border-radius: 7px;'/>");
+        // $(div_id).html("<img src='http://54.177.49.21:8000/translation/signlanguage/?status=true' style='width:640px; height:360px;top:10%;margin:5px;border:3px solid #c2c7cc; border-radius: 7px;'/>");
+        $(cam_button).html("<button id='from-button' type='button' onclick='video_off()' style='width:120px;height:35px;margin:10px;text-align:center;padding:5px;'>Translate</button>");
+        $.ajax({
+            url: "{% url 'Translation:signlanguage' %}",
+            type: "GET",
+            // dataType: "json",
+            data: {'status': true},
+            success: function(data){
+                console.log('on success')
+                // document.all('div_id').innerHTML="<img src='http://127.0.0.1:8000/translation/signlanguage' style='width:640px; height:360px;top:10%;margin:5px;border:3px solid #c2c7cc; border-radius: 7px;'/>";
+            },error: function(request,status,error) { 
+                console.log('on error')
+                alert('code:'+request.status+'\n'+'message:'+request.responseText+'\n'+'error:'+error);
+            } 
+        });
     }
     function video_off(){
         $(div_id).html("<p>Select Language</p>");
-        document.getElementById('from-button').setAttribute("onclick", "video_on()");
-        document.getElementById('from-button').innerText = 'Camera On';
+        $(cam_button).html("<button id='from-button' type='button' onclick='video_on()' style='width:120px;height:35px;margin:10px;text-align:center;padding:5px;'>Camera On</button>");
         $.ajax({
-            url: '{% url 'Translation:signlanguage' %}',
+            url: "{% url 'Translation:signlanguage' %}",
             type: "GET",
             dataType: "json",
-            success: function(){
-                console.log('success')
-            },error: function(e) { 
-                console.log('error')
+            data: {'status': false},
+            success: function(data){
+                console.log('off success')
+            },error: function(request,status,error) { 
+                console.log('off error')
+                // alert('code:'+request.status+'\n'+'message:'+request.responseText+'\n'+'error:'+error);
             } 
         });
     }
@@ -89,9 +102,8 @@
         <div class="left" style="width:50%;height:100%;float: left; box-sizing: content-box;margin:auto;display: flex;flex-direction: column;align-items: center;">
             <div class="form-group" style="width:100%; display: flex;flex-direction:row;align-items: center;justify-content: center">
                 <label for ="to"><h3><b>Translate from </b></h3></label>  
-                <div id="cam-button" style="display: flex;flex-direction:row;">
+                <div id="cam_button" style="display: flex;flex-direction:row;">
                     <button id="from-button" type="button" onclick="video_on()" style="width:120px;height:35px;margin:10px;text-align:center;padding:5px;">Camera On</button>
-                    {% comment %} <button type="button" onclick="video_off()" style="margin:auto;text-align:center;">Translate</button> {% endcomment %}
                 </div>
             </div>
             <div id="div_id" style="margin-top:30px;">

@@ -9,6 +9,5 @@ urlpatterns = [
         path('braille/', views.braille, name='braille'),
         path('textlanguage/', views.textlanguage, name='textlanguage'),
         path('soundlanguage/', views.soundlanguage, name='soundlanguage'),
-        path('delcam/', views.delcam, name='delcam'),
 
 ]

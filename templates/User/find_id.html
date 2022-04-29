@@ -11,7 +11,7 @@
         var confirm_email = document.getElementById('getemail_id').value
         
         $.ajax({
-            url: '{% url 'user:show_id' %}',
+            url: "{% url 'user:show_id' %}",
             type: "GET",
             dataType: "json",
             data: {'confirm_email': confirm_email},
