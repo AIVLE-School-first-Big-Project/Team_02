@@ -7,6 +7,7 @@ from gtts import gTTS
 import time
 from PIL import Image
 import os
+import mediapipe as mp
 
 from CompoNDecompo.decompose import Decompose
 from CompoNDecompo.Alphabets import HEAD_DOUBLE_CONSONANT,TAIL_DOUBLE_CONSONANT
@@ -37,6 +38,7 @@ class VideoCamera(object):
         # image = self.frame
         # retval, jpeg = cv2.imencode('.jpg', image)
         ret, image = self.video.read()
+        image = cv2.flip(image, 1)
         if ret:
             ret, jpeg =  cv2.imencode('.jpg', image)
             return jpeg.tobytes()
