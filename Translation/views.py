@@ -69,16 +69,35 @@ def gen(camera):
 
 @gzip.gzip_page
 def signlanguage(request):
-    try:
-        status = request.GET.get('status')
-        cam = VideoCamera()
-        if status == 'false':
-            cam.__del__()
-            return JsonResponse({})
-        return StreamingHttpResponse(gen(cam), content_type="multipart/x-mixed-replace;boundary=frame")
-    except:
-        print("error")
-        pass
+    # try:
+    #     status = request.GET.get('status')
+    #     cam = VideoCamera()
+    #     if status == 'false':
+    #         cam.__del__()
+    #         return JsonResponse({})
+    #     return StreamingHttpResponse(gen(cam), content_type="multipart/x-mixed-replace;boundary=frame")
+    # except:
+    #     print("error")
+    #     pass
+
+    name = ['0','1','2','3','4','5','6','7','8','9','10','가렵다','개','공원','금요일','내년','내일','냄새나다',
+        '누나','동생','수화','물','아래','바다','배고프다','병원','불','산','삼키다','선생님','수요일','아빠',
+        '아파트','앞','어제','어지러움','언니','엄마','오늘','오른쪽','오빠','올해','왼쪽','월요일','위에',
+        '음식물','일요일','자동차','작년','집','친구','택시','토요일','학교','형','화요일','화장실',
+        '가다','감사합니다','괜찮습니다','나','남자','내리다','당신','돕다','맞다',
+        '모르다','미안합니다','반드시','부탁합니다','빨리','수고','수화','슬프다','싫다',
+        '아니다','안녕하세요','알다','없다','여자','오다','있다','잘','좋다','주다','타다',
+        '끝', '무엇', '키우다', '우리', '단체', '번역', '만들다', '사랑합니다', '어디']
+
+    model = load_model("Translation/file/mp_model.h5")
+
+    mp_words = model1_mp.meadia_pipe(model, name)
+    print(mp_words)
+
+    sentence = model2_wts.predict_mo(mp_words)
+    print(sentence)  # 문장 
+
+    return render(request, '../templates/translation.html',{ 'data': sentence })
 
 
 def textlanguage(request):
@@ -147,12 +166,9 @@ def sts_model(request): # signtosentence_model
     model = load_model("Translation/file/mp_model.h5")
 
     mp_words = model1_mp.meadia_pipe(model, name)
-    
     print(mp_words) 
-    #np_words2 = wtsmodel.new_text(mp_words)
-    #print(np_words2)
 
-    sentence1 = model2_wts.predict_mo(mp_words)
-    print(sentence1)  
+    sentence = model2_wts.predict_mo(mp_words)
+    print(sentence)  
 
-    return render(request, '../templates/test111.html',{ 'data': sentence1 })#, 'text' : WToS.text })
+    return render(request, '../templates/test111.html',{ 'data': sentence })#, 'text' : WToS.text })
