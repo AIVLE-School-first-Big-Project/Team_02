@@ -21,7 +21,7 @@
                     audio_path = data['audio_path']
                     document.all('div_id2').innerHTML="<audio controls><source src='{% get_static_prefix %}audio/" + audio_path + ".mp3' type='audio/mp3'></audio>";
                 }, error: function(e) { 
-                    document.all('div_id2').innerHTML="틀렷다"
+                    document.all('div_id2').innerHTML="다시 한번 동작해주세요."
                 } 
             });
         }else if (selectLanguage == 'braille'){
@@ -34,11 +34,13 @@
                     img_path = data['img_path']
                     document.all('div_id2').innerHTML="<img src='{% get_static_prefix %}bralille_translated/" + img_path + ".png'>";
                 },error: function(e) { 
-                    document.all('div_id2').innerHTML="틀렷다"
+                    document.all('div_id2').innerHTML="다시 한번 동작해주세요."
                 } 
                 
             });
-        } else {
+        } else if (selectLanguage == 'text') {
+            $(div_id2).html("");
+        }else {
             $(div_id2).html("");
         }
     }
@@ -120,10 +122,11 @@
                     <option value="none">Language</option>
                     <option value="braille">점자</option>
                     <option value="soundlanguage">음성</option>
+                    <option value="text">텍스트</option>
                 </select> 
             </div>
             <div class="form-group">
-                <div id="div_id2" style="margin:auto;margin-top:4em;margin-bottom:4em"></div>
+                <div id="div_id2" style="margin:auto;margin-top:8em;margin-bottom:4em"></div>
             </div>
         </div>
     </div>

@@ -83,7 +83,7 @@ def signlanguage(request):
 
 def textlanguage(request):
     # 수어 to 텍스트... 
-    text = '안녕하세요 2조 여러분'
+    text = '수화 번역을 만들었습니다'
     # text = '2조 여러분'
     # text = '닦달하다 닭다리'
     # text = '아 이'
@@ -121,10 +121,12 @@ def braille(text):
         # input = Image.open(path)
         input = Image.open(os.path.join('../', script_dir, path))
         result.paste(im=input, box=(idx*164, 0))
-    result = result.resize((int(result.width / 5), int(result.height / 5)))
+    result = result.resize((int(result.width / 7), int(result.height / 7)))
     filename = time.strftime("%Y%m%d-%H%M%S")
     # result.save(f"../static/bralille_translated/{filename}.png")
     save_path = f"../static/bralille_translated/{filename}.png"
     result.save(os.path.join('../', script_dir, save_path))
     context = {'img_path' : filename}
     return JsonResponse(context)
+
+
