@@ -1,12 +1,12 @@
 from django.shortcuts import get_object_or_404, redirect, render
 
-from Qna.forms import PostForm
+from .forms import PostForm
 from .models import Qna_Posting, Qna_Chatting
 from User.models import User
 from django.core.paginator import Paginator
 #from .forms import PostForm
 
-def qna(request):
+def qna_post(request):
     qna_list = Qna_Posting.objects.all()
     now_page =int(request.GET.get('page', 1))
     qna_list = qna_list.order_by('-qna_idx')
@@ -85,3 +85,8 @@ def qna_detail(request,pk):
     return render(request, '../templates/qna_detail.html', context)
 
 
+
+def delete(request, pk):
+    post = Qna_Posting.objects.get(qna_idx = pk)
+    post.delete()
+    return redirect('/qna/')
