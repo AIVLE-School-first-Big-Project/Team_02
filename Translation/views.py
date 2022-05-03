@@ -27,6 +27,7 @@ class VideoCamera(object):
     # 카메라 정지
     def __del__(self):
         self.video.release()
+        cv2.destroyallwindows()
         return
 
     # 영상을 jpg 바이너리로 변환하여 리턴
