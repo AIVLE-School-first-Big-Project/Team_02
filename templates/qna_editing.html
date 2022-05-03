@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE HTML>
+
+<!--
+	Telephasic by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	{% block content %}
+<!-- ================ category section start ================= -->
+<section class="section-margin--small mb-5">
+	<div class="container">
+		<div class="row">
+			<div class="mx-auto col-xl-9 col-lg-8 col-md-7">
+				<form method="post" enctype="multipart/form-data">
+					{% csrf_token %}
+					<table class="mx-auto table">
+						<tr>
+							<td>
+								<h4>Title</h4>
+							</td>
+							<td>{{form.title}}</td>
+						</tr>
+						<tr>
+							<td>
+								<h4>시각/청각</h4>
+							</td>
+							<td>{{form.visualhearing}}</td>
+						</tr>
+						<tr>
+							<td>
+								<h4>Picture</h4>
+							</td>
+							<td> {{form.pic}} </td>
+						</tr>
+						<tr>
+							<td>
+								<h4>Body</h4>
+							</td>
+							<td>{{form.body}}</td>
+						</tr>
+					</table>
+					{% if form.errors %} 
+					<span style="color: red">{{ form.errors }} </span> 
+					{% endif %} 
+					
+					<div class="col text-center">
+						<button type="submit" class="btn btn-outline-secondary mx-auto">수정</button>
+						<button class="btn btn-outline-secondary">
+							<a href="{% url 'Qna:qna_detail' pk %}">취소</a>
+						</button>
+					</div>
+				</form>
+
+			</div>
+		</div>
+	</div>
+		<script src="{% static 'js/jquery.min.js' %}"></script>
+		<script src="{% static 'js/jquery.dropotron.min.js' %}"></script>
+		<script src="{% static 'js/browser.min.js' %}"></script>
+		<script src="{% static 'js/breakpoints.min.js' %}"></script>
+		<script src="{% static 'js/util.js' %}"></script>
+		<script src="{% static 'js/main.js' %}"></script>
+		{% endblock %}
+</html>
