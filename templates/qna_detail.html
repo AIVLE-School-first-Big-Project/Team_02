@@ -41,10 +41,10 @@
                 {% comment %} 해당 게시판을 작성한 사용자만 수정/삭제 버튼 활성화 {% endcomment %}
 
                 {% ifequal request.session.username result.id %}
-                <a href="{%url 'Qna:edit' result.qna_idx %}" class="link-secondary">수정</a>
-                <a href="{%url 'Qna:delete' result.qna_idx %}" class="link-secondary">삭제</a>
+                <a href="{%url 'Qna:qna_edit' result.qna_idx %}" class="link-secondary">수정</a>
+                <a href="{%url 'Qna:qna_delete' result.qna_idx %}" class="link-secondary">삭제</a>
                 {% else %}
-                <a href="{% url 'Qna:qna' %}" class="link-secondary">목록</a>
+                <a href="{% url 'Qna:qna_post' %}" class="link-secondary">목록</a>
                 {% endifequal %}
               </div>
             </div>
