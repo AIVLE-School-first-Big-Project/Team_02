@@ -38,32 +38,35 @@
                 } 
                 
             });
-        } else if (selectLanguage == 'text') {
-            $.ajax({
-                url: "{% url 'Translation:textlanguage' %}",
-                type: "GET",
-                dataType: "json",
-                data: {'language': selectLanguage},
-                success: function(data){
-                    document.all('div_id2').innerHTML="<h3>" + data['text'] + "</h3>";
-                },error: function(e) { 
-                    document.all('div_id2').innerHTML="다시 한번 동작해주세요."
-                } 
-            });
+        //} else if (selectLanguage == 'text') {
+        //    $.ajax({
+        //        url: "{% url 'Translation:textlanguage' %}",
+        //        type: "GET",
+        //        dataType: "json",
+        //        data: {'language': selectLanguage},
+        //        success: function(data){
+        //            document.all('div_id2').innerHTML="<h3>" + data['text'] + "</h3>";
+        //        },error: function(e) { 
+        //            document.all('div_id2').innerHTML="다시 한번 동작해주세요."
+        //        } 
+        //    });
         }else {
             $(div_id2).html("");
         }
     }
     function video_on(){
-        $(div_id).html("<img src='http://127.0.0.1:8000/translation/signlanguage/?status=true' style='width:640px; height:360px;top:10%;margin:5px;border:3px solid #c2c7cc; border-radius: 7px;'/>");
+        $(div_id).html("<img src='http://http://127.0.0.1:8000/translation/model/' style='width:640px; height:360px;top:10%;margin:5px;border:3px solid #c2c7cc; border-radius: 7px;'/>");
+        // $(div_id).html("<img src='http://127.0.0.1:8000/translation/signlanguage/?status=true' style='width:640px; height:360px;top:10%;margin:5px;border:3px solid #c2c7cc; border-radius: 7px;'/>");
         $(cam_button).html("<button id='from-button' type='button' onclick='video_off()' style='width:120px;height:35px;margin:10px;text-align:center;padding:5px;'>Translate</button>");
         $.ajax({
-            url: "{% url 'Translation:signlanguage' %}",
+            // url: "{% url 'Translation:signlanguage' %}",
+            url: "{% url 'Translation:model' %}",
             type: "GET",
             // dataType: "json",
             data: {'status': true},
             success: function(data){
                 console.log('on success')
+                document.all('div_id2').innerHTML="<h3>" + data['data'] + "</h3>"
                 // document.all('div_id').innerHTML="<img src='http://127.0.0.1:8000/translation/signlanguage' style='width:640px; height:360px;top:10%;margin:5px;border:3px solid #c2c7cc; border-radius: 7px;'/>";
             },error: function(request,status,error) { 
                 console.log('on error')
@@ -74,18 +77,19 @@
     function video_off(){
         $(div_id).html("<p>Select Language</p>");
         $(cam_button).html("<button id='from-button' type='button' onclick='video_on()' style='width:120px;height:35px;margin:10px;text-align:center;padding:5px;'>Camera On</button>");
-        $.ajax({
-            url: "{% url 'Translation:signlanguage' %}",
-            type: "GET",
-            dataType: "json",
-            data: {'status': false},
-            success: function(data){
-                console.log('off success')
-            },error: function(request,status,error) { 
-                console.log('off error')
-                // alert('code:'+request.status+'\n'+'message:'+request.responseText+'\n'+'error:'+error);
-            } 
-        });
+        // $(div_id2).html("<h3>" + data['text'] + "</h3>");
+        //$.ajax({
+        //    url: "{% url 'Translation:signlanguage' %}",
+        //    type: "GET",
+        //    dataType: "json",
+        //    data: {'status': false},
+        //    success: function(data){
+        //        console.log('off success')
+        //    },error: function(request,status,error) { 
+        //        console.log('off error')
+         //       // alert('code:'+request.status+'\n'+'message:'+request.responseText+'\n'+'error:'+error);
+        //    } 
+        //});
     }
 </script>
 <style>
@@ -131,7 +135,7 @@
                     <option value="none">Language</option>
                     <option value="braille">점자</option>
                     <option value="soundlanguage">음성</option>
-                    <option value="text">텍스트</option>
+                    <!-- <option value="text">텍스트</option> -->
                 </select> 
             </div>
             <div class="form-group">

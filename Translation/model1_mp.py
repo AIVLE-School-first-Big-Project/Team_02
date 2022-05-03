@@ -115,6 +115,7 @@ def meadia_pipe(model, actions):
         if cv2.waitKey(1) == ord('q'):
             cv2.destroyAllWindows()
             cap.release()
+            # cv2.destroyAllWindows()
             return sentences
     
 # mp_words = meadia_pipe(model1, actions1)
