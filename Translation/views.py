@@ -2,11 +2,13 @@ from django.shortcuts import render
 from django.views.decorators import gzip
 from django.http import HttpResponse, StreamingHttpResponse, JsonResponse
 import cv2
-import threading
 from gtts import gTTS
 import time
 from PIL import Image
 import os
+from tensorflow import keras
+from keras.models import load_model
+from Translation import model1_mp, model2_wts # 모델 테스트 함수
 
 from CompoNDecompo.decompose import Decompose
 from CompoNDecompo.Alphabets import HEAD_DOUBLE_CONSONANT,TAIL_DOUBLE_CONSONANT
@@ -19,13 +21,8 @@ def home(request):
 class VideoCamera(object):
 
     def __init__(self):
-        # 웹캠 켜짐
         self.video = cv2.VideoCapture(0, cv2.CAP_DSHOW)
-        print(1)
-        # 프레임 추출
-        # (self.grabbed, self.frame) = self.video.read()
-        # 실시간 영상을 위해 스레드 구현
-        # threading.Thread(target=self.update, args=()).start()
+
         
     # 카메라 정지
     def __del__(self):
@@ -34,28 +31,12 @@ class VideoCamera(object):
 
     # 영상을 jpg 바이너리로 변환하여 리턴
     def get_frame(self):
-        # image = self.frame
-        # retval, jpeg = cv2.imencode('.jpg', image)
         ret, image = self.video.read()
         if ret:
             ret, jpeg =  cv2.imencode('.jpg', image)
             return jpeg.tobytes()
         return None
 
-            
-
-    # 프레임 추출
-    # def update(self):
-    #     while True:
-    #         (self.grabbed, self.frame) = self.video.read()
-    #         if any([self.grabbed, self.frame]):
-    #             break
-
-    
-# def gen(camera):
-#     frame = camera.get_frame()
-#     yield(b'--frame\r\n'
-#             b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
 
 def gen(camera):
     while True:
@@ -103,15 +84,15 @@ def signlanguage(request):
 def textlanguage(request):
     # 수어 to 텍스트... 
     text = '수화 번역을 만들었습니다'
-    # text = '2조 여러분'
-    # text = '닦달하다 닭다리'
-    # text = '아 이'
     language = request.GET.get('language')
     if language == 'braille':
         text = text.replace(' ', '')
         return braille(text)
     elif language == 'soundlanguage':
         return soundlanguage(text)
+    elif language == 'text':
+        return JsonResponse({'text' : text})
+
 
 def soundlanguage(text):
     # 텍스트 to 음성
@@ -148,12 +129,6 @@ def braille(text):
     context = {'img_path' : filename}
     return JsonResponse(context)
 
-<<<<<<< HEAD
-
-=======
-from tensorflow import keras
-from keras.models import load_model
-from Translation import model1_mp, model2_wts # 모델 테스트 함수
 
 def sts_model(request): # signtosentence_model
 
@@ -175,4 +150,4 @@ def sts_model(request): # signtosentence_model
     print(sentence)  
 
     return render(request, '../templates/test111.html',{ 'data': sentence })#, 'text' : WToS.text })
->>>>>>> 4460c6a303ec7755bcf8353aedc3680e7e809c03
+    # return textlanguage(sentence)
