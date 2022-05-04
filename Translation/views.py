@@ -6,7 +6,6 @@ from gtts import gTTS
 import time
 from PIL import Image
 import os
-from sympy import Q
 from tensorflow import keras
 from keras.models import load_model
 from Translation import model1_mp, model2_wts # 모델 테스트 함수
@@ -128,13 +127,14 @@ def braille(text):
                 display.append(f'nums/{syllable}')
             else:
                 display.append(f'{dict[idx%3]}/{syllable}')
-    result_width, result_height = len(display) * 164, 231
-    result = Image.new("L", (result_width, result_height))
+    height_num = len(display) // 10 + 1
+    result_width, result_height = 10 * 164, 231 * height_num
+    result = Image.new("RGBA", (result_width, result_height))
     for idx, b in enumerate(display):
         path = f'../static/bralille_set/{b}.png'
         # input = Image.open(path)
         input = Image.open(os.path.join('../', script_dir, path))
-        result.paste(im=input, box=(idx*164, 0))
+        result.paste(im=input, box=(((idx)%10)*164, (idx // 10) * 231))
     result = result.resize((int(result.width / 7), int(result.height / 7)))
     filename = time.strftime("%Y%m%d-%H%M%S")
     # result.save(f"../static/bralille_translated/{filename}.png")
