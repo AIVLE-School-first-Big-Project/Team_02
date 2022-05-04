@@ -2115,15 +2115,6 @@ input, select, textarea {
 					-ms-transition: border-color 0.25s ease-in-out, background-color 0.25s ease-in-out;
 					transition: border-color 0.25s ease-in-out, background-color 0.25s ease-in-out;
 				}
-				#nav > ul > li:first-child {
-					margin-left: 0;
-				}
-
-				#nav > ul > li.break {
-					margin-left: 10em;
-					margin-right: 35em;
-				}
-
 	.dropotron {
 		text-align: left;
 		line-height: 2em;
