@@ -92,12 +92,9 @@ def signlanguage(request):
 
 def textlanguage(request):
     global translated_sentence
-    # 수어 to 텍스트... 
-    print('textlanguage :', translated_sentence)
     language = request.GET.get('language')
     text = translated_sentence
     # translated_sentence = []
-    print('textlanguage:', text)
     if language == 'braille':
         text = text.replace(' ', '')
         return braille(text)
@@ -108,7 +105,6 @@ def textlanguage(request):
 
 
 def soundlanguage(text):
-    # 텍스트 to 음성
     tts = gTTS(text=text, lang='ko')
     filename = time.strftime("%Y%m%d-%H%M%S")
     tts.save(os.path.join('../', script_dir, f"../static/audio/{filename}.mp3"))
@@ -174,17 +170,17 @@ def sts_model(request): # signtosentence_model
 def textlanguage2(request):
     global translated_sentence2
     translated_sentence2 = request.GET.get('text')
-    return
+    return JsonResponse({})
 
 def textlanguage2_trans(request):
     global translated_sentence2
     language = request.GET.get('language')
     text = translated_sentence2
-    translated_sentence2 = []
     if language == 'braille':
         text = text.replace(' ', '')
         return braille(text)
     elif language == 'soundlanguage':
         return soundlanguage(text)
     elif language == 'signlanguage':
-        return JsonResponse({'text' : text})
+        context = {'img_path' : text}
+        return JsonResponse(context)
