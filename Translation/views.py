@@ -14,6 +14,7 @@ from CompoNDecompo.decompose import Decompose
 from CompoNDecompo.Alphabets import HEAD_DOUBLE_CONSONANT,TAIL_DOUBLE_CONSONANT
 script_dir = os.path.dirname(__file__)
 translated_sentence = []
+translated_sentence2 = []
 
 
 def home(request):
@@ -169,3 +170,21 @@ def sts_model(request): # signtosentence_model
     # return render(request, '../templates/test111.html',{ 'data': translated_sentence })#, 'text' : WToS.text })
     # return textlanguage(translated_sentence)
     return JsonResponse({'data' : translated_sentence}) 
+
+def textlanguage2(request):
+    global translated_sentence2
+    translated_sentence2 = request.GET.get('text')
+    return
+
+def textlanguage2_trans(request):
+    global translated_sentence2
+    language = request.GET.get('language')
+    text = translated_sentence2
+    translated_sentence2 = []
+    if language == 'braille':
+        text = text.replace(' ', '')
+        return braille(text)
+    elif language == 'soundlanguage':
+        return soundlanguage(text)
+    elif language == 'signlanguage':
+        return JsonResponse({'text' : text})

@@ -25,7 +25,7 @@
     }
     </script>
 <p>이메일을 입력해주세요.</p>
-<form method="POST" action="{% url 'user:find_id' %}" style="width:33%;height:30%, margin-bottom: 1.5em">
+<form method="POST" action="{% url 'user:find_id' %}" style="width:33%;height:30%; margin-bottom: 1.5em;">
     {% csrf_token %}
     <input id="getemail_id" type="text" name="confirm_email">
     <button class="send_btn" onclick="show_id()" type="button" style="display: block;margin: 0 auto; margin-top: 1.5em">아이디 찾기</button>
