@@ -92,7 +92,6 @@ def signlanguage(request):
 def textlanguage(request):
     global translated_sentence
     # 수어 to 텍스트... 
-    # text = '수화 번역을 만들었습니다'
     print('textlanguage :', translated_sentence)
     language = request.GET.get('language')
     text = translated_sentence
