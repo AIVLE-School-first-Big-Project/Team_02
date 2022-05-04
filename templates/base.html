@@ -28,9 +28,13 @@
 					<!-- Nav -->
 						<nav id="nav">
 							<ul>
-								<li><a href="{% url 'Post:show' %}">게시판</a>
+								<li style="margin-left: 15em;"><a href="">게시판</a>
+									<ul>
+										<li><a href="{% url 'Post:show' %}">게시판</a></li>
+										<li><a href="{% url 'Qna:qna_post' %}">Q&A</a></li>
+									</ul>
 								</li>
-								<li class="break"><a href="{% url 'Qna:qna_post' %}">Q&A</a></li>
+								<li style="margin-left: 30em;margin-right: 10em;"><a href="{% url 'Translation:index' %}">번역</a></li>
 							</ul>
 							<ul>
 								<li>

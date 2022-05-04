@@ -5,8 +5,16 @@ from django.core.paginator import Paginator
 from .forms import PostForm
 # Create your views here.
 def show(request):
-    
+    filter = request.GET.get('filter','')
+    search = request.GET.get('search','')
     post_list = Posting.objects.all()
+    if filter:
+        if(filter=='vision'):
+            post_list = post_list.filter(visualhearing=0)
+        elif(filter=='hearing'):
+            post_list = post_list.filter(visualhearing=1)
+    if search:
+            post_list = post_list.filter(title__contains=search)
 
     now_page =int(request.GET.get('page', 1))
     post_list = post_list.order_by('-post_idx')
