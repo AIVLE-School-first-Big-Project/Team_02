@@ -11,6 +11,7 @@
     function change_dropdown(selectid){
         var language = document.getElementById(selectid);
         var selectLanguage = language.options[language.selectedIndex].value;
+        document.all('div_id2').innerHTML=""
         if (selectLanguage == 'text'){
             document.all('div_cam_button').innerHTML="";
             document.all('div_cam').innerHTML="<textarea id='gettext' name='gettext'>";
@@ -29,7 +30,11 @@
                  <button id='from-button' type='button' onclick='video_on()' style='width:120px;height:35px;margin:10px;text-align:center;padding:5px;'>Camera On</button>\
             </div>\
             ";
-
+            document.all('div_to').innerHTML="\
+                <select id='select_to' name='to' onchange='show_area(this.id)' style='text-align:center; margin:10px; padding:5px'>\
+                    <option value='none'>Language</option>\
+                    <option value='braille'>점자</option>\
+                    <option value='soundlanguage'>음성</option>\</select>";
         }
 
     }
@@ -228,7 +233,7 @@
     @keyframes fadeIn {
         0% { opacity:0; }
         100% { opacity:100%; }
-    }​
+    }
 </style>
 
 <div style="width:100%;height:100%;padding:5%;display: flex;flex-direction: column;align-items: center;">
@@ -279,13 +284,12 @@
                     <option value="none">Language</option>
                     <option value="braille">점자</option>
                     <option value="soundlanguage">음성</option>
-                    <!-- <option value="text">텍스트</option> -->
                 </select>
                 </div>
                 </div>
             </div>
             <div class="form-group">
-                <div id="div_id2" style="margin:auto;margin-top:4em;margin-bottom:4em"></div>
+                <div id="div_id2" style="margin:auto;margin-top:2em;margin-bottom:4em"></div>
             </div>
         </div>
     </div>
