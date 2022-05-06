@@ -9,7 +9,7 @@ urlpatterns = [
         path('braille/', views.braille, name='braille'),
         path('textlanguage/', views.textlanguage, name='textlanguage'),
         path('soundlanguage/', views.soundlanguage, name='soundlanguage'),
-        path('model/', views.sts_model, name='model'),
+        #path('model/', views.sts_model, name='model'),
         path('textlanguage2/', views.textlanguage2, name='textlanguage2'),
         path('textlanguage2_trans/', views.textlanguage2_trans, name='textlanguage2_trans'),
 ]
