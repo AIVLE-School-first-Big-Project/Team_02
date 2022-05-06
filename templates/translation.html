@@ -97,7 +97,7 @@
         $(div_cam_button).html("<button id='from-button' type='button' onclick='video_off()'>Translate</button>");
         $.ajax({
             // url: "{% url 'Translation:signlanguage' %}",
-            url: "{% url 'Translation:model' %}",
+            url: "{% url 'Translation:signlanguage' %}",
             type: "GET",
             // dataType: "json",
             data: {'status': true},
