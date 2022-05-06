@@ -15,26 +15,27 @@
         if (selectLanguage == 'text'){
             document.all('div_cam_button').innerHTML="";
             document.all('div_cam').innerHTML="<textarea id='gettext' name='gettext'>";
-            document.all('div_cam_button').innerHTML="<button id='from-button' type='button' onclick='text_input()' style='width:120px;height:35px;margin:10px;text-align:center;padding:5px;'>Translate</button>";
+            document.all('div_cam_button').innerHTML="<button id='from-button' type='button' onclick='text_input()'>Translate</button>";
             document.all('div_to').innerHTML="\
-                <select id='select_to' name='to' onchange='show_area2(this.id)' style='text-align:center; margin:10px; padding:5px'>\
-                <option value='none'>Language</option>\
-                <option value='signlanguage'>수어</option>\
-                <option value='braille'>점자</option>\
-                <option value='soundlanguage'>음성</option></select>";
+                <select id='select_to' name='to' onchange='show_area2(this.id)'>\
+                    <option value='none'>Language</option>\
+                    <option value='signlanguage'>수어</option>\
+                    <option value='braille'>점자</option>\
+                    <option value='soundlanguage'>음성</option>\
+                </select>";
         }
         else{
             document.all('div_cam').innerHTML="";
             document.all('div_cam_button').innerHTML="\
-            <div id='cam_button' style='display: flex;flex-direction:row;'>\
-                 <button id='from-button' type='button' onclick='video_on()' style='width:120px;height:35px;margin:10px;text-align:center;padding:5px;'>Camera On</button>\
-            </div>\
-            ";
+            <div id='cam_button'>\
+                 <button id='from-button' type='button' onclick='video_on()'>Camera On</button>\
+            </div>";
             document.all('div_to').innerHTML="\
-                <select id='select_to' name='to' onchange='show_area(this.id)' style='text-align:center; margin:10px; padding:5px'>\
+                <select id='select_to' name='to' onchange='show_area(this.id)'>\
                     <option value='none'>Language</option>\
                     <option value='braille'>점자</option>\
-                    <option value='soundlanguage'>음성</option>\</select>";
+                    <option value='soundlanguage'>음성</option>\
+                </select>";
         }
 
     }
@@ -93,7 +94,7 @@
     function video_on(){
         $(div_cam).html("<img src='http://http://127.0.0.1:8000/translation/model/' style='width:640px; height:360px;top:10%;margin:5px;border:3px solid #c2c7cc; border-radius: 7px;'/>");
         // $(div_id).html("<img src='http://127.0.0.1:8000/translation/signlanguage/?status=true' style='width:640px; height:360px;top:10%;margin:5px;border:3px solid #c2c7cc; border-radius: 7px;'/>");
-        $(div_cam_button).html("<button id='from-button' type='button' onclick='video_off()' style='width:120px;height:35px;margin:10px;text-align:center;padding:5px;'>Translate</button>");
+        $(div_cam_button).html("<button id='from-button' type='button' onclick='video_off()'>Translate</button>");
         $.ajax({
             // url: "{% url 'Translation:signlanguage' %}",
             url: "{% url 'Translation:model' %}",
@@ -111,7 +112,7 @@
     }
     function video_off(){
         $(div_cam).html("<p>Select Language</p>");
-        $(cam_button).html("<button id='from-button' type='button' onclick='video_on()' style='width:120px;height:35px;margin:10px;text-align:center;padding:5px;'>Camera On</button>");
+        $(cam_button).html("<button id='from-button' type='button' onclick='video_on()'>Camera On</button>");
         // $(div_id2).html("<h3>" + data['text'] + "</h3>");
         //$.ajax({
         //    url: "{% url 'Translation:signlanguage' %}",
@@ -149,6 +150,9 @@
         border-radius: 4px;
         border-color: #c2c7cc;
         outline: 0 none;
+        text-align:center; 
+        margin:10px; 
+        padding:5px
       }
     #select_to option, #select_from option {
       background: #fff;
@@ -234,6 +238,40 @@
         0% { opacity:0; }
         100% { opacity:100%; }
     }
+    .left, .right{
+        width:50%;
+        height:100%;
+        float: left; 
+        box-sizing: content-box;
+        margin:auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .form-group{
+        width:100%; 
+        display: flex;
+        flex-direction:column;
+        align-items: center;
+        justify-content: center;
+    }
+    #div_id, #div_idid{
+        display: flex;
+        flex-direction:row;
+        align-items: center;
+        justify-content: center;
+    }
+    #from-button{
+        width:120px;
+        height:35px;
+        margin:10px;
+        text-align:center;
+        padding:5px;
+    }
+    #cam_button{
+        display: flex;
+        flex-direction:row;
+    }
 </style>
 
 <div style="width:100%;height:100%;padding:5%;display: flex;flex-direction: column;align-items: center;">
@@ -255,12 +293,12 @@
 </div>
 <div style="width:100%;height:100%;padding:5%;display:flex;flex-direction:column;align-items: center;">
     <div style="width:100%;height:50vh;display:flex;flex-direction:row;align-items: center;">
-        <div class="left" style="width:50%;height:100%;float: left; box-sizing: content-box;margin:auto;display: flex;flex-direction: column;align-items: center;">
-            <div class="form-group" style="width:100%; display: flex;flex-direction:column;align-items: center;justify-content: center">                
-                <div id="div_id" style="display: flex;flex-direction:row;align-items: center;justify-content: center;">
+        <div class="left">
+            <div class="form-group">                
+                <div id="div_id">
                     <label for ="from"><h3><b>Translate from </b></h3></label> 
                     <div id="div_from">
-                        <select id="select_from" name="from" onchange="change_dropdown(this.id)" style="text-align:center; margin:10px; padding:5px">
+                        <select id="select_from" name="from" onchange="change_dropdown(this.id)">
                             <option value="none">Language</option>
                             <option value="signlanguage">수어</option>
                             <option value="text">텍스트</option>
@@ -274,13 +312,12 @@
             </div>
         </div>
         <div style='top: 50%;'><img src='../static/img/arrow.png' style='width:100px; height:100px;margin:20px;'/></div>
-        <div class="right" style="width:50%;height:100%;float: left; box-sizing: content-box;margin:auto;display: flex;flex-direction: column;align-items: center;">
-            <div class="form-group" style="width:100%; display: flex;flex-direction:row;align-items: center;justify-content: center"> 
-                <div style="display: flex;flex-direction:row;align-items: center;justify-content: center;">
-                    <!-- <div id="div_id" style="margin-top:30px;"> -->
+        <div class="right">
+            <div class="form-group"> 
+                <div id="div_idid">
                 <label for ="to"><h3><b>Translate to </b></h3></label>
                 <div id="div_to">    
-                <select id="select_to" name="to" onchange="show_area(this.id)" style="text-align:center; margin:10px; padding:5px">
+                <select id="select_to" name="to" onchange="show_area(this.id)">
                     <option value="none">Language</option>
                     <option value="braille">점자</option>
                     <option value="soundlanguage">음성</option>
