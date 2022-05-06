@@ -92,8 +92,8 @@
         }
     }
     function video_on(){
-        $(div_cam).html("<img src='http://http://127.0.0.1:8000/translation/signlanguage/' style='width:640px; height:360px;top:10%;margin:5px;border:3px solid #c2c7cc; border-radius: 7px;'/>");
-        // $(div_id).html("<img src='http://127.0.0.1:8000/translation/signlanguage/?status=true' style='width:640px; height:360px;top:10%;margin:5px;border:3px solid #c2c7cc; border-radius: 7px;'/>");
+        // $(div_cam).html("<img src='http://http://127.0.0.1:8000/translation/signlanguage/' style='width:640px; height:360px;top:10%;margin:5px;border:3px solid #c2c7cc; border-radius: 7px;'/>");
+        $(div_cam).html("<img src='http://127.0.0.1:8000/translation/signlanguage/?status=true' style='width:640px; height:360px;top:10%;margin:5px;border:3px solid #c2c7cc; border-radius: 7px;'/>");
         $(div_cam_button).html("<button id='from-button' type='button' onclick='video_off()'>Translate</button>");
         $.ajax({
             // url: "{% url 'Translation:signlanguage' %}",
