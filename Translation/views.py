@@ -255,7 +255,9 @@ def signlanguage(request):
 
             print(translated_sentence)
             sentence = model2_wts.predict_mo(translated_sentence)
-            print(sentence)  
+            #print(sentence)  
+            translated_sentence = sentence
+            #print(translated_sentence)
 
             return JsonResponse({'data' : sentence })
         return StreamingHttpResponse(gen(cam), content_type="multipart/x-mixed-replace;boundary=frame")

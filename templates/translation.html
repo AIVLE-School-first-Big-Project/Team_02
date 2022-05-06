@@ -107,6 +107,7 @@
             data: {'status': false},
             success: function(data){
                 console.log('off success')
+                document.all('div_id2').innerHTML="<h3>" + data['data'] + "</h3>"
             },error: function(request,status,error) { 
                 console.log('off error')
                 alert('code:'+request.status+'\n'+'message:'+request.responseText+'\n'+'error:'+error);
