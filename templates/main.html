@@ -7,104 +7,26 @@
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
-<html>
-				<section class="hero" id="hero">
-					<div class="container">
-						<div class="row">
-							<div class="col-md-8 col-md-offset-2 text-center">
-								<h1 class="animated bounceInDown">너나들이</h1>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-2 col-md-offset-5 text-center">
-							<a href="{% url 'Translation:index' %}" class="hero-play-btn">Play Button</a>
-							</div>
-						</div>
-					</div>
-				</section>
+<body>
+	<section class="hero" style="background-attachment: fixed;">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2 text-center">
+					<h1 class="animated bounceInDown">너나들이</h1>
+				</div>
 			</div>
-			<div class="wrapper">
-				<div class="container">
-					<div class="row">
-						<section class="col-2 col-4-narrower feature">
-							<div class="image-wrapper first">
-							</div>
-							<header>
-								<h3>Contributors<br /><br />
-								담당</h3>
-							</header>
-							<p>Edit</p>
-						</section>
-						<section class="col-2 col-4-narrower feature">
-							<div class="image-wrapper first">
-							</div>
-							<header>
-								<h3>유정은<br />
-								adipiscing curabitur</h3>
-							</header>
-							<p>Edit</p>
-							<ul class="actions">
-								<li><a href="#" class="button">More About</a></li>
-							</ul>
-						</section>
-						<section class="col-2 col-4-narrower feature">
-							<div class="image-wrapper first">
-							</div>
-							<header>
-								<h3>한현수<br />
-								adipiscing curabitur</h3>
-							</header>
-							<p>Edit</p>
-							<ul class="actions">
-								<li><a href="#" class="button">More About</a></li>
-							</ul>
-						</section>
-						<section class="col-2 col-4-narrower feature">
-							<div class="image-wrapper first">
-							</div>
-							<header>
-								<h3>김지윤<br />
-								adipiscing curabitur</h3>
-							</header>
-							<p>Edit</p>
-							<ul class="actions">
-								<li><a href="#" class="button">More About</a></li>
-							</ul>
-						</section>
-						<section class="col-2 col-4-narrower feature">
-							<div class="image-wrapper first">
-							</div>
-							<header>
-								<h3>최아현<br />
-								adipiscing curabitur</h3>
-							</header>
-							<p>Edit</p>
-							<ul class="actions">
-								<li><a href="#" class="button">More About</a></li>
-							</ul>
-						</section>
-						<section class="col-2 col-4-narrower feature">
-							<div class="image-wrapper first">
-							</div>
-							<header>
-								<h3>박지수<br />
-								adipiscing curabitur</h3>
-							</header>
-							<p>Edit</p>
-							<ul class="actions">
-								<li><a href="#" class="button">More About</a></li>
-							</ul>
-						</section>								
-					</div>
+			<div class="row">
+				<div class="col-md-2 col-md-offset-5 text-center">
+					<a href="{% url 'Translation:index' %}" class="hero-play-btn">Play Button</a>
 				</div>
 			</div>
 		</div>
-		{% endblock %}
-			<script src="{% static 'js/jquery.min.js' %}"></script>
-			<script src="{% static 'js/jquery.dropotron.min.js' %}"></script>
-			<script src="{% static 'js/browser.min.js' %}"></script>
-			<script src="{% static 'js/breakpoints.min.js' %}"></script>
-			<script src="{% static 'js/util.js' %}"></script>
-			<script src="{% static 'js/main.js' %}"></script>
-
-</html>
+	</section>
+	{% endblock %}
+	<script src="{% static 'js/jquery.min.js' %}"></script>
+	<script src="{% static 'js/jquery.dropotron.min.js' %}"></script>
+	<script src="{% static 'js/browser.min.js' %}"></script>
+	<script src="{% static 'js/breakpoints.min.js' %}"></script>
+	<script src="{% static 'js/util.js' %}"></script>
+	<script src="{% static 'js/main.js' %}"></script>
+</body>
