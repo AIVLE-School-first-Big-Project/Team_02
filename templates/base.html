@@ -25,28 +25,31 @@
 						<h1 id="logo"><a href="{% url 'Main:index' %}">너나들이</a></h1>
 
 					<!-- Nav -->
-						<nav id="nav" style="position: absolute;">
-							<ul style=" float:center;text-align: left;margin-left: 5em;">
-								<li ><a href="">게시판</a>
+						<nav id="nav">
+							<ul style="margin-left: 10em;">
+								<li><a href="#">게시판</a>
 									<ul>
 										<li><a href="{% url 'Post:show' %}">게시판</a></li>
 										<li><a href="{% url 'Qna:qna_post' %}">Q&A</a></li>
 									</ul>
 								</li>
-								<li style="margin-left: 25em;"><a href="{% url 'Translation:index' %}">번역</a></li>
+								<li style="margin-left: 25em;"> <a href="{% url 'Translation:index' %}">번역</a></li>
+
 							</ul>
-							<ul style=" float:right;">
-								<li>
-									{% if request.session.username%}
+							<ul style="float: right;">
+								{% if request.session.username%}
+								<li style="margin-right:5em">
 									<a href="#">{{ request.session.username }}님</a>
 									<ul>
 										<li><a href="{% url 'user:mypage' user.username %}">회원정보</a></li>
 										<li><a href="{% url 'user:logout' %}">로그아웃</a></li>
 									</ul>
-									{% else %}
+								</li>
+								{% else %}
+								<li>
 									<a href="{% url 'user:login' %}">로그인</a>
 									<a href="{% url 'user:signup' %}">회원가입</a>
-									{% endif %}
+								{% endif %}
 								</li>
 							</ul>
 						</nav>

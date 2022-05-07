@@ -610,6 +610,7 @@ input, select, textarea {
 	}
 
 		#nav > ul {
+			
 			display: inline-block;
 			margin: 0;
 		}
@@ -822,7 +823,7 @@ input, select, textarea {
 
 			body, input, textarea, select {
 				line-height: 1.5em;
-				font-size: 13pt;
+				font-size: 12pt;
 			}
 
 			span.extra {
@@ -856,7 +857,7 @@ input, select, textarea {
 	
 		body, input, textarea, select {
 			line-height: 1.5em;
-			font-size: 13pt;
+			font-size: 11pt;
 		}
 	
 		#nav {
@@ -878,7 +879,7 @@ input, select, textarea {
 
 			body, input, textarea, select {
 				line-height: 1.5em;
-				font-size: 14pt;
+				font-size: 11pt;
 				
 			}
 
