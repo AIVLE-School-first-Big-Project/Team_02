@@ -565,13 +565,12 @@ input, select, textarea {
 
 	#header-wrapper {
 		position: relative;
-		background: url('../img/hero.jpg')  repeat center top;
-		background-size: cover;
+		background-image: url("../img/hero.jpg")  no-repeat center top;
 	}
 /* Header */
 
 	#logo {
-		position: absolute;
+		position: relative;
 		z-index: 1;
 		top: 0;
 		left: 50%;
