@@ -39,6 +39,7 @@ def show(request):
         'now_page' : now_page,
         'last_page_num' : last_page_num
     }
+    print(info[0].date)
     return render(request, '../templates/post.html', context)
 
 

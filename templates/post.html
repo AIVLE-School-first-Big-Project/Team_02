@@ -82,7 +82,7 @@
 							<a href = "{% url 'Post:detail' post.post_idx %}">{{ post.title}}</a>
 						</td>
 						<td style="width: 10%" class="text-center">{{post.id}}</td>
-						<td style="width: 30%" class="text-center">{{post.date}}</td>
+						<td style="width: 30%" class="text-center">{{post.date|date:'Y년 M j일'}}</td>
 						<td style="width: 10%" class="text-center"></td>
 					</tr>
 				{% empty %}
