@@ -33,12 +33,15 @@
           </table>
         <div style="display:flex">
                 {% comment %} 해당 게시판을 작성한 사용자만 수정/삭제 버튼 활성화 {% endcomment %}
+          <h1>{{request.session.username}}</h1>
+          <p>{{result.id}}</p>
           {% ifequal request.session.username result.id %}
+
           <a href="{%url 'Post:edit' result.post_idx %}" class="link-secondary">수정</a>
           <a href="{%url 'Post:delete' result.post_idx %}" class="link-secondary">삭제</a>
-          {% else %}
-          <a href="{% url 'Post:show' %}" class="link-secondary">목록</a>
           {% endifequal %}
+          <a href="{% url 'Post:show' %}" class="link-secondary">목록</a>
+          
         </div>
       </div>
       <h1 style="text-align: left;">comment</h1>
