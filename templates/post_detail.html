@@ -22,8 +22,11 @@
                 {% ifequal request.session.username  user.username %}
                 <a href="{%url 'Post:edit' result.post_idx %}" class="link-secondary" style="margin-left: 55em;">수정</a>
                 <a href="{%url 'Post:delete' result.post_idx %}" class="link-secondary" style="margin-left: 1em;">삭제</a>
-                {% endifequal %}          
-                <a href="{% url 'Post:show' %}" class="link-secondary" style="margin-left: 1em;">목록</a>
+                <a href="{% url 'Post:show' %}" class="link-secondary" style="margin-left: 1em;">목록</a>     
+        
+                {% else %}     
+                <a href="{% url 'Post:show' %}" class="link-secondary" style="margin-left: 61em;">목록</a>    
+                {% endifequal %} 
               </th>
             </tr>
             </tr>
