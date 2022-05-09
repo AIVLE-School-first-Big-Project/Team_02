@@ -64,7 +64,7 @@
 			{% endif %}
 			<br>
 			<hr>
-			<table class="table table-hover">
+			<table class="table table-hover" style='margin-bottom:0px;'>
 				<thead>
 					<tr>
 						<th scope="col" class="text-center">Index</th>
@@ -82,13 +82,13 @@
 						</td>
 						<td style="width: 10%" class="text-center">{{post.id}}</td>
 						<td style="width: 30%" class="text-center">{{post.date|date:'Y년 M j일'}}</td>
-						<td style="width: 10%" class="text-center"></td>
 					</tr>
 				{% empty %}
 				<h4 class ="text-center link-secondary">존재하지 않습니다</h4>
 				{% endfor %}
 				</tbody>
 			</table>
+			<hr style="margin:0px;">
 			{% comment %} 페이징 {% endcomment %}
 			<div>
 				<ul class = "pagination justify-content-center">
