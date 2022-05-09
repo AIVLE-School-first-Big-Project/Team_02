@@ -7,13 +7,12 @@
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
-<html>
 	{% block content %}
 <!-- ================ category section start ================= -->
-<section class="section-margin--small mb-5">
-	<div class="container">
+<body style="justify-content : center; text-align: center;">
+	<div class="container" style="margin-top: 2em;">
 		<div class="row">
-			<div class="mx-auto col-xl-9 col-lg-8 col-md-7">
+			<div class="mx-auto col-xl-9">
 				<form method="post" enctype="multipart/form-data">
 					{% csrf_token %}
 					<table class="mx-auto table">
@@ -57,11 +56,4 @@
 			</div>
 		</div>
 	</div>
-		<script src="{% static 'js/jquery.min.js' %}"></script>
-		<script src="{% static 'js/jquery.dropotron.min.js' %}"></script>
-		<script src="{% static 'js/browser.min.js' %}"></script>
-		<script src="{% static 'js/breakpoints.min.js' %}"></script>
-		<script src="{% static 'js/util.js' %}"></script>
-		<script src="{% static 'js/main.js' %}"></script>
 		{% endblock %}
-</html>
