@@ -78,7 +78,6 @@ def edit(request, pk):
 def detail(request, pk):
     result = get_object_or_404(Posting, post_idx = pk)
     user = User.objects.get(username = result.id)
-
     if request.method == 'POST':
         comment = Chatting()
         comment.username = request.session['username']
@@ -92,6 +91,9 @@ def detail(request, pk):
         'user' : user, 
         'comments' : comments, 
         }    
+    print(type(result.id))
+    print(type(user.username))
+    print(type(request.session['username']))
     return render(request, '../templates/post_detail.html', context)
 
 
