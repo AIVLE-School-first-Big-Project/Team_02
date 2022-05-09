@@ -13,12 +13,19 @@
 <body style="justify-content : center; text-align: center;">
   <section class="section-margin--small mb-5">
     <div class="container">
-      <div class="row" style="justify-content:center;">
+      <div class="row">
                 {% comment %} 게시판 시작 {% endcomment %}
         <div class="d-grid gap-2 d-md-flex justify-content-md-end"></div>
           <table class="table">
             <tr>
-							<th scope="col" class="text-left">{{result.title}}</th>
+							<th scope="col" class="text-left"><h2>{{result.title}}</h2> <br> 
+                {% ifequal request.session.username  user.username %}
+                <a href="{%url 'Post:edit' result.post_idx %}" class="link-secondary" style="margin-left: 55em;">수정</a>
+                <a href="{%url 'Post:delete' result.post_idx %}" class="link-secondary" style="margin-left: 1em;">삭제</a>
+                {% endifequal %}          
+                <a href="{% url 'Post:show' %}" class="link-secondary" style="margin-left: 1em;">목록</a>
+              </th>
+            </tr>
             </tr>
             <tr>
               <td> 
@@ -33,12 +40,6 @@
           </table>
         <div style="display:flex">
                 {% comment %} 해당 게시판을 작성한 사용자만 수정/삭제 버튼 활성화 {% endcomment %}
-
-          {% ifequal request.session.username  user.username %}
-          <a href="{%url 'Post:edit' result.post_idx %}" class="link-secondary" style="margin-right: 5em;">수정</a>
-          <a href="{%url 'Post:delete' result.post_idx %}" class="link-secondary" style="margin-right: 5em;">삭제</a>
-          {% endifequal %}          
-          <a href="{% url 'Post:show' %}" class="link-secondary" style="margin-right: 10em;">목록</a>
 
 
         </div>
