@@ -15,10 +15,10 @@
     <div class="container">
       <div class="row">
                 {% comment %} 게시판 시작 {% endcomment %}
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end"></div>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="margin-top:60px;"></div>
           <table class="table">
             <tr>
-							<th scope="col" class="text-left"><h2>{{result.title}}</h2> <br> 
+							<th scope="col" class="text-left" style="padding-top:40px;"><h3>제목 : <strong>{{result.title}}</strong></h3> <br> 
                 {% ifequal request.session.username  user.username %}
                 <a href="{%url 'Post:edit' result.post_idx %}" class="link-secondary" style="margin-left: 55em;">수정</a>
                 <a href="{%url 'Post:delete' result.post_idx %}" class="link-secondary" style="margin-left: 1em;">삭제</a>
@@ -33,7 +33,7 @@
             <tr>
               <td> 
                 {% if result.pic %}
-                <img src="/media/{{ result.pic }}" class="img-responsive left-block"style="width:200px; height:200px;"> 
+                <center><img src="/media/{{ result.pic }}" class="img-responsive left-block"style="width:400px; height:400px;"></center>
                 {% endif %}
               </td>
             </tr>
@@ -53,6 +53,7 @@
         <form method="POST">
         {% csrf_token %}
           <textarea class="form-control" rows="3" name="body"></textarea>
+          <br>
           <button type="submit" class="btn btn-default btn-lg float-right">등록</button>
         </form>
         {% endif %}
