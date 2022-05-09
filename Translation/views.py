@@ -1,38 +1,24 @@
-from django.shortcuts import render
-
+import os
 import cv2
+import time
+import statistics
 import mediapipe as mp
 import numpy as np
-from PIL import ImageFont, ImageDraw, Image
-import statistics
-import os
-from google.protobuf.json_format import MessageToDict
-
 from django.shortcuts import render
+from django.http import StreamingHttpResponse, JsonResponse
 from django.views.decorators import gzip
-from django.http import HttpResponse, StreamingHttpResponse, JsonResponse
-import cv2
+from PIL import ImageFont, ImageDraw, Image
+from google.protobuf.json_format import MessageToDict
 from gtts import gTTS
-import time
-from PIL import Image
-import os
-from tensorflow import keras
 from keras.models import load_model
-from Translation import model1_mp, model2_wts # 모델 테스트 함수
-
+from Translation import model_wts # 모델 테스트 함수
 from CompoNDecompo.decompose import Decompose
-from CompoNDecompo.Alphabets import HEAD_DOUBLE_CONSONANT,TAIL_DOUBLE_CONSONANT
+
 script_dir = os.path.dirname(__file__)
 translated_sentence = []
 action_seq = []
 translated_sentence2 = []
 
-
-import statistics
-from google.protobuf.json_format import MessageToDict
-
-translated_sentence = []
-action_seq = []
 
 def home(request):
     context = {'data' : translated_sentence}
@@ -43,7 +29,6 @@ def textlanguage(request):
     global translated_sentence
     language = request.GET.get('language')
     text = translated_sentence
-    # translated_sentence = []
     if language == 'braille':
         text = text.replace(' ', '')
         return braille(text)
@@ -77,12 +62,10 @@ def braille(text):
     result = Image.new("RGBA", (result_width, result_height))
     for idx, b in enumerate(display):
         path = f'../static/bralille_set/{b}.png'
-        # input = Image.open(path)
         input = Image.open(os.path.join('../', script_dir, path))
         result.paste(im=input, box=(((idx)%10)*164, (idx // 10) * 231))
     result = result.resize((int(result.width / 7), int(result.height / 7)))
     filename = time.strftime("%Y%m%d-%H%M%S")
-    # result.save(f"../static/bralille_translated/{filename}.png")
     save_path = f"../static/bralille_translated/{filename}.png"
     result.save(os.path.join('../', script_dir, save_path))
     context = {'img_path' : filename}
@@ -109,11 +92,6 @@ def textlanguage2_trans(request):
 
 # 웹 스트리밍 부분 -- 
 
-import mediapipe as mp
-import numpy as np
-import statistics
-from PIL import ImageFont, ImageDraw, Image
-from google.protobuf.json_format import MessageToDict
 
 class VideoCamera(object):
 
@@ -124,7 +102,6 @@ class VideoCamera(object):
     # 카메라 정지
     def __del__(self):
         self.video.release()
-        #cv2.destroyallwindows()
         return
 
     # 영상을 jpg 바이너리로 변환하여 리턴
@@ -252,44 +229,11 @@ def signlanguage(request):
         cam = VideoCamera()
         if status == 'false':
             cam.__del__()       
-
-            print(translated_sentence)
-            sentence = model2_wts.predict_mo(translated_sentence)
-            #print(sentence)  
+            sentence = model_wts.predict_mo(translated_sentence)
             translated_sentence = sentence
-            #print(translated_sentence)
-
             return JsonResponse({'data' : sentence })
         return StreamingHttpResponse(gen(cam), content_type="multipart/x-mixed-replace;boundary=frame")
     except:
         print("error")
         pass
-
-# 일단 냅두는 코드
-    # def sts_model(request): # signtosentence_model
-    #     global translated_sentence
-    #     status = request.GET.get('status')
-    #     print('status : ', status)
-    #     # translated_sentence = []
-    #     name = ['0','1','2','3','4','5','6','7','8','9','10','가렵다','개','공원','금요일','내년','내일','냄새나다',
-    #         '누나','동생','수화','물','아래','바다','배고프다','병원','불','산','삼키다','선생님','수요일','아빠',
-    #         '아파트','앞','어제','어지러움','언니','엄마','오늘','오른쪽','오빠','올해','왼쪽','월요일','위에',
-    #         '음식물','일요일','자동차','작년','집','친구','택시','토요일','학교','형','화요일','화장실',
-    #         '가다','감사합니다','괜찮습니다','나','남자','내리다','당신','돕다','맞다',
-    #         '모르다','미안합니다','반드시','부탁합니다','빨리','수고','수화','슬프다','싫다',
-    #         '아니다','안녕하세요','알다','없다','여자','오다','있다','잘','좋다','주다','타다',
-    #         '끝', '무엇', '키우다', '우리', '단체', '번역', '만들다', '사랑합니다', '어디']
-
-    #     model = load_model("Translation/file/mp_model.h5")
-
-    #     mp_words = model1_mp.meadia_pipe(model, name)
-    #     print(mp_words) 
-
-    #     sentence = model2_wts.predict_mo(mp_words)
-    #     print('sentence: ', sentence)  
-    #     translated_sentence = sentence
-    #     print('translated_sentence: ', translated_sentence)
-    #     # return render(request, '../templates/test111.html',{ 'data': translated_sentence })#, 'text' : WToS.text })
-    #     # return textlanguage(translated_sentence)
-    #     return JsonResponse({'data' : translated_sentence})
 

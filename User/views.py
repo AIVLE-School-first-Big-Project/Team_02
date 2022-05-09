@@ -1,9 +1,6 @@
-import email
-from genericpath import exists
 import random
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, JsonResponse
-from requests import session
+from django.http import JsonResponse
 from .models import User
 from Post.models import Posting
 from .forms import SignupForm, LoginForm, UpdateForm, PasswordVerificationForm, ParamForm
@@ -25,12 +22,8 @@ def signup(request):
           if form.is_valid():
                form.save()
                username = form.cleaned_data.get('username')
-               name = form.cleaned_data.get('name')
-               email = form.cleaned_data.get('email')
                raw_password = form.cleaned_data.get('password1')
-               
                user = authenticate(username=username, password=raw_password)
-               # login(request, user)
                return redirect('/user/login')
           else:
                context['signup_form'] = form
@@ -86,7 +79,7 @@ def delete(request, username):
      context['password_form'] = form
      return render(request, "../templates/User/delete.html", context)
 
-def update(request, username):
+def update(request):
      context = {}
      if request.method == 'POST':
           form = UpdateForm(request.POST, instance=request.user)
