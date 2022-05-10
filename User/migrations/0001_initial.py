@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
                 ('id',
                  models.AutoField(auto_created=True,
                                   primary_key=True,
-                                  erialize=False,
+                                  serialize=False,
                                   verbose_name='ID')),
                 ('password',
                  models.CharField(max_length=128,

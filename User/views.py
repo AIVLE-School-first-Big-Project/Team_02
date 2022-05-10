@@ -126,9 +126,9 @@ def mypage(request, username):
 
 def active_message(username_64):
     LENGTH = 8
-    string_pool = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ\
-                    abcdefghijklmnopqrstuvwxyz\
-                    0123456789!@#$%^&*'
+    string_pool = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' +\
+        'abcdefghijklmnopqrstuvwxyz' +\
+        '0123456789!@#$%^&*'
     newpassword = ""
 
     for _ in range(LENGTH):

@@ -94,16 +94,16 @@ def textlanguage2_trans(request):
         context = {'img_path': text}
         return JsonResponse(context)
 
-
+# 웹 스트리밍 부분 -- 
 class VideoCamera(object):
 
     def __init__(self):
         self.video = cv2.VideoCapture(0, cv2.CAP_DSHOW)
-
+    # 카메라 정지
     def __del__(self):
         self.video.release()
         return
-
+    # 영상을 jpg 바이너리로 변환하여 리턴
     def get_frame(self, model, actions, seq_length, mp_hands, mp_drawing, hands, seq):
         global translated_sentence
         global action_seq
@@ -122,14 +122,20 @@ class VideoCamera(object):
                     for j, lm in enumerate(res.landmark):
                         joint[j] = [lm.x, lm.y, lm.z]
 
-                    v1 = joint[[0, 1, 2, 3, 0, 5, 6, 7, 0, 9, 10, 11, 0, 13, 14, 15, 0, 17, 18, 19], :3]
-                    v2 = joint[[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], :3]
+                    v1 = joint[[0, 1, 2, 3, 0, 5, 6, 7, 0, 9, 10,
+                                11, 0, 13, 14, 15, 0, 17, 18, 19], :3]
+                    v2 = joint[[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
+                                12, 13, 14, 15, 16, 17, 18, 19, 20], :3]
                     v = v2 - v1
                     v = v / np.linalg.norm(v, axis=1)[:, np.newaxis]
-                    angle = np.arccos(np.einsum('nt,nt->n',
-                                                v[[0, 1, 2, 4, 5, 6, 8, 9, 10, 12, 13, 14, 16, 17, 18], :],
-                                                v[[1, 2, 3, 5, 6, 7, 9, 10, 11, 13, 14, 15, 17, 18, 19], :]))
-                    angle = np.degrees(angle)
+                    angle = np.arccos(np.einsum(
+                        'nt,nt->n',
+                        v[[0, 1, 2, 4, 5, 6, 8, 9, 10,
+                           12, 13, 14, 16, 17, 18], :],
+                        v[[1, 2, 3, 5, 6, 7, 9, 10, 11,
+                           13, 14, 15, 17, 18, 19], :]
+                        ))
+                    angle = np.degrees(angle)  # Convert radian to degree
                     angle_label = np.array(angle, dtype=np.float32)
                     handedness_dict = MessageToDict(result.multi_handedness[0])
                     if handedness_dict['classification'][0]['label'] == 'Right':
@@ -138,7 +144,9 @@ class VideoCamera(object):
                         left_hand = joint
 
                     hand_arr.extend(angle_label)
-                    mp_drawing.draw_landmarks(image, res, mp_hands.HAND_CONNECTIONS)
+                    mp_drawing.draw_landmarks(
+                        image, res, mp_hands.HAND_CONNECTIONS
+                        )
 
                 if len(hand_arr) == 15:
                     handedness_dict = MessageToDict(result.multi_handedness[0])
@@ -150,15 +158,17 @@ class VideoCamera(object):
                     return None
 
                 hand_distance = left_hand - right_hand
-                hand_distance /= np.linalg.norm(hand_distance, axis=1)[:, np.newaxis]
+                hand_distance /= \
+                    np.linalg.norm(hand_distance, axis=1)[:, np.newaxis]
                 hand_arr = np.concatenate((hand_arr, hand_distance.flatten()))
                 seq.append(hand_arr)
 
                 if len(seq) < seq_length:
                     return None
 
-                input_data = np.expand_dims(np.array(seq[-seq_length:], dtype=np.float32),
-                                            axis=0)
+                input_data = np.expand_dims(np.array(
+                    seq[-seq_length:], dtype=np.float32
+                    ), axis=0)
                 y_pred = model.predict(input_data).squeeze()
                 i_pred = int(np.argmax(y_pred))
                 conf = y_pred[i_pred]
@@ -182,6 +192,7 @@ class VideoCamera(object):
 
             else:
                 if len(action_seq) > 0:
+                    print(translated_sentence)
                     translated_sentence.append(statistics.mode(action_seq))
                     action_seq = []
 
