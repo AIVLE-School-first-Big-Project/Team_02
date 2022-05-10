@@ -12,7 +12,9 @@
 ```
  서로 다른 언어를 사용하고 있어도 허물없이 대화할 수 있도록 도움을 주는 서비스
  ```
- 
+<div align="center"> 
+ <img src="/img/img4.jpg"  width="500" height="200">
+</div>
 <br/>
 <br/>
 
@@ -41,7 +43,7 @@
 
 ### ERD
 <div align="center"> 
- <img src="/img/img1.jpg"  width="450" height="300">
+ <img src="/img/img1.png"  width="450" height="300">
 </div>
 
 <br/>
