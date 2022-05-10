@@ -12,7 +12,7 @@ from google.protobuf.json_format import MessageToDict
 from gtts import gTTS
 from keras.models import load_model
 from Translation import model_wts
-from CompoNDecompo.decompose import Decompose
+from Hanguel import decompose
 
 script_dir = os.path.dirname(__file__)
 translated_sentence = []
@@ -49,7 +49,7 @@ def soundlanguage(text):
 
 
 def braille(text):
-    arr = Decompose(text)
+    arr = decompose.Decompose(text)
     dict = {0: 'chosung', 1: 'joongsung', 2: 'jongsung'}
     display = []
     for word in arr:
