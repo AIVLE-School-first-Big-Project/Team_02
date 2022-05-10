@@ -29,7 +29,7 @@
 
 ### 주요기능
 <div align="center"> 
- <img src="/img/img2.JPG"  width="500" height="200">
+ <img src="/img/img2.JPG"  width="600" height="200">
 </div>
 
 ```
