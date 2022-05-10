@@ -18,13 +18,17 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Posting',
             fields=[
-                ('post_idx', models.AutoField(primary_key=True, serialize=False)),
+                ('post_idx', models.AutoField(primary_key=True,
+                                              serialize=False)),
                 ('title', models.CharField(max_length=255, null=True)),
                 ('body', models.TextField(null=True)),
                 ('pic', models.ImageField(upload_to='')),
                 ('date', models.DateTimeField(default=datetime.datetime.now)),
                 ('visualhearing', models.IntegerField()),
-                ('post_owner', models.ForeignKey(db_column='id', on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ('post_owner',
+                 models.ForeignKey(db_column='id',
+                                   on_delete=django.db.models.deletion.CASCADE,
+                                   to=settings.AUTH_USER_MODEL)),
             ],
             options={
                 'db_table': 'Posting',
@@ -34,11 +38,16 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Chatting',
             fields=[
-                ('chatting_index', models.AutoField(primary_key=True, serialize=False)),
-                ('username', models.CharField(blank=True, max_length=150)),
+                ('chatting_index', models.AutoField(primary_key=True,
+                                                    serialize=False)),
+                ('username', models.CharField(blank=True,
+                                              max_length=150)),
                 ('date', models.DateTimeField(default=datetime.datetime.now)),
                 ('chatting', models.TextField(null=True)),
-                ('post_idx', models.ForeignKey(db_column='post_idx', on_delete=django.db.models.deletion.CASCADE, to='Post.posting')),
+                ('post_idx',
+                 models.ForeignKey(db_column='post_idx',
+                                   on_delete=django.db.models.deletion.CASCADE,
+                                   to='Post.posting')),
             ],
             options={
                 'db_table': 'Chatting',

@@ -1,16 +1,16 @@
 import cv2
 import mediapipe as mp
 import numpy as np
-import pandas as pd
 import os
 from google.protobuf.json_format import MessageToDict
 
-# data = pd.read_csv('mp_data/train_label1.csv')
-
-# actions = data['label']
-actions = ['가다','감사합니다','괜찮습니다','나','남자','내리다','당신','돕다','맞다',
-'모르다','미안합니다','반드시','부탁합니다','빨리','수고','수화','슬프다','싫다',
-'아니다','안녕하세요','알다','없다','여자','오다','있다','잘','좋다','주다','타다']
+actions = [
+    '가다', '감사합니다', '괜찮습니다', '나', '남자',
+    '내리다', '당신', '돕다', '맞다', '모르다', '미안합니다',
+    '반드시', '부탁합니다', '빨리', '수고', '수화', '슬프다',
+    '싫다', '아니다', '안녕하세요', '알다', '없다', '여자',
+    '오다', '있다', '잘', '좋다', '주다', '타다'
+    ]
 
 # LSTM Window Size
 seq_length = 10
@@ -25,7 +25,7 @@ hands = mp_hands.Hands(
     min_tracking_confidence=0.5)
 
 os.makedirs('dataset', exist_ok=True)
-zero = np.zeros(78) 
+zero = np.zeros(78)
 
 for idx_1, action in enumerate(actions):
     VIDEO_FILES = []
@@ -34,11 +34,8 @@ for idx_1, action in enumerate(actions):
         for file in files:
             VIDEO_FILES.append(os.path.join(root, file))
 
-    # action = actions[idx_1]
-
     for idx, file in enumerate(VIDEO_FILES):
         cap = cv2.VideoCapture(file)
-        # action = actions[idx]
         data = []
 
         while cap.isOpened():
@@ -47,7 +44,7 @@ for idx_1, action in enumerate(actions):
             try:
                 img = img[0:800, :]
                 img = cv2.resize(img, (800, 450))
-                
+
             except Exception as e:
                 print(str(e))
             if not ret:
@@ -60,36 +57,40 @@ for idx_1, action in enumerate(actions):
             if result.multi_hand_landmarks:
                 data_arr = []
                 for res in result.multi_hand_landmarks:
-                    # joint = np.zeros((21, 4))
                     joint = np.zeros((21, 3))
                     for j, lm in enumerate(res.landmark):
-                        # joint[j] = [lm.x, lm.y, lm.z, lm.visibility]
                         joint[j] = [lm.x, lm.y, lm.z]
 
                     # Compute angles between joints
-                    v1 = joint[[0,1,2,3,0,5,6,7,0,9,10,11,0,13,14,15,0,17,18,19], :2] # Parent joint
-                    v2 = joint[[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20], :2] # Child joint
-                    v = v2 - v1 # [20, 3]
+                    # Parent joint
+                    v1 = joint[[0, 1, 2, 3, 0, 5, 6, 7, 0, 9, 10,
+                                11, 0, 13, 14, 15, 0, 17, 18, 19], :2]
+                    # Child joint
+                    v2 = joint[[1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+                                11, 12, 13, 14, 15, 16, 17, 18, 19, 20], :2]
+                    v = v2 - v1  # [20, 3]
                     # Normalize v
                     v = v / np.linalg.norm(v, axis=1)[:, np.newaxis]
 
                     # Get angle using arcos of dot product
-                    angle = np.arccos(np.einsum('nt,nt->n',
-                        v[[0,1,2,4,5,6,8,9,10,12,13,14,16,17,18],:], 
-                        v[[1,2,3,5,6,7,9,10,11,13,14,15,17,18,19],:])) # [15,]
+                    angle = np.arccos(np.einsum(
+                        'nt,nt->n',
+                        v[[0, 1, 2, 4, 5, 6, 8, 9, 10,
+                           12, 13, 14, 16, 17, 18], :],
+                        v[[1, 2, 3, 5, 6, 7, 9, 10, 11,
+                           13, 14, 15, 17, 18, 19], :]))  # [15,]
 
-                    angle = np.degrees(angle) # Convert radian to degree
+                    angle = np.degrees(angle)  # Convert radian to degree
 
                     angle_label = np.array(angle, dtype=np.float32)
-                    # angle_label = np.append(angle_label, idx)
 
                     d = np.concatenate([joint.flatten(), angle_label])
 
-                    mp_drawing.draw_landmarks(img, res, mp_hands.HAND_CONNECTIONS)
-                
+                    mp_drawing.draw_landmarks(img, res,
+                                              mp_hands.HAND_CONNECTIONS)
+
                     data_arr.extend(d)
-                    # data_arr.extend(joint.flatten())
-                
+
                 if len(data_arr) == 78:
                     handedness_dict = MessageToDict(result.multi_handedness[0])
                     if handedness_dict['classification'][0]['label'] == 'Right':
@@ -100,17 +101,16 @@ for idx_1, action in enumerate(actions):
                     continue
                 data_arr = np.append(data_arr, idx_1+57)
                 data.append(data_arr)
-                
+
             cv2.imshow('img', img)
             if cv2.waitKey(1) == ord('q'):
                 break
-        
+
         data = np.array(data)
         print(action, data.shape)
-        
+
         if len(data) < seq_length:
             continue
-        # np.save(os.path.join('dataset', f'raw_{action}'), data)
 
         # Create sequence data
         try:
@@ -119,16 +119,15 @@ for idx_1, action in enumerate(actions):
                 full_seq_data.append(data[seq:seq + seq_length])
             full_seq_data = np.array(full_seq_data)
             print(action, full_seq_data.shape)
-            
-            if idx_1==0 and idx == 0:
+
+            if idx_1 == 0 and idx == 0:
                 full_data = full_seq_data
                 continue
-            
+
             full_data = np.concatenate((full_data, full_seq_data))
             print(action, full_data.shape)
-            # np.save(os.path.join('dataset', f'seq_{action}'), full_seq_data)
-        
-        except:
+
+        except Exception:
             print('ERROR!!', action, idx)
             pass
 

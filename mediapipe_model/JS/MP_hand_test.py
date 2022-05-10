@@ -4,20 +4,23 @@ import numpy as np
 from tensorflow.keras.models import load_model
 from PIL import ImageFont, ImageDraw, Image
 from google.protobuf.json_format import MessageToDict
-import os
 
-# os.environ['TF_CPP_MIN_LOG_LEVEL'] ='3'
 
-name = ['0','1','2','3','4','5','6','7','8','9','10','가렵다','개','공원','금요일',
-    '내년','내일','냄새나다','누나','동생','목요일','물','아래','바다','배고프다','병원',
-    '불','산','삼키다','선생님','수요일','아빠','아파트','앞','어제','어지럽다','언니','엄마',
-    '오늘','오른쪽','오빠','올해','왼쪽','월요일','위','음식','일요일','자동차','작년','집',
-    '친구','택시','토요일','학교','형','화요일','화장실',
-    '가다','감사합니다','괜찮습니다','끝','나','남자','내리다','당신','돕다','맞다',
-    '모르다','무엇','미안합니다','반드시','부탁합니다','빨리','수고','수화','슬프다',
-    '싫다','아니다','안녕하세요','알다','없다','여자','오다','있다','잘','좋다',
-    '주다','키우다','타다'
-]
+name = [
+    '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
+    '가렵다', '개', '공원', '금요일', '내년', '내일', '냄새나다',
+    '누나', '동생', '목요일', '물', '아래', '바다', '배고프다',
+    '병원', '불', '산', '삼키다', '선생님', '수요일', '아빠',
+    '아파트', '앞', '어제', '어지럽다', '언니', '엄마', '오늘',
+    '오른쪽', '오빠', '올해', '왼쪽', '월요일', '위', '음식',
+    '일요일', '자동차', '작년', '집', '친구', '택시', '토요일',
+    '학교', '형', '화요일', '화장실', '가다', '감사합니다',
+    '괜찮습니다', '끝', '나', '남자', '내리다', '당신', '돕다',
+    '맞다', '모르다', '무엇', '미안합니다', '반드시', '부탁합니다',
+    '빨리', '수고', '수화', '슬프다', '싫다', '아니다', '안녕하세요',
+    '알다', '없다', '여자', '오다', '있다', '잘', '좋다', '주다',
+    '키우다', '타다'
+    ]
 
 actions = name
 seq_length = 10
@@ -28,7 +31,7 @@ model = load_model('models/model_xyz_angle.h5')
 mp_hands = mp.solutions.hands
 mp_drawing = mp.solutions.drawing_utils
 hands = mp_hands.Hands(
-    model_complexity = 0,
+    model_complexity=0,
     max_num_hands=2,
     min_detection_confidence=0.5,
     min_tracking_confidence=0.5)
@@ -37,11 +40,6 @@ hands = mp_hands.Hands(
 cap = cv2.VideoCapture(0)
 zero = np.zeros(78)
 
-# w = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-# h = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-# fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
-# out = cv2.VideoWriter('input.mp4', fourcc, cap.get(cv2.CAP_PROP_FPS), (w, h))
-# out2 = cv2.VideoWriter('output.mp4', fourcc, cap.get(cv2.CAP_PROP_FPS), (w, h))
 
 seq = []
 action_seq = []
@@ -58,25 +56,27 @@ while cap.isOpened():
     if result.multi_hand_landmarks is not None:
         data_arr = []
         for res in result.multi_hand_landmarks:
-            # joint = np.zeros((21, 4))
             joint = np.zeros((21, 3))
             for j, lm in enumerate(res.landmark):
-                # joint[j] = [lm.x, lm.y, lm.z, lm.visibility]
                 joint[j] = [lm.x, lm.y, lm.z]
 
             # Compute angles between joints
-            v1 = joint[[0,1,2,3,0,5,6,7,0,9,10,11,0,13,14,15,0,17,18,19], :2] # Parent joint
-            v2 = joint[[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20], :2] # Child joint
-            v = v2 - v1 # [20, 3]
+            v1 = joint[[0, 1, 2, 3, 0, 5, 6, 7, 0, 9, 10, 11,
+                        0, 13, 14, 15, 0, 17, 18, 19], :2]  # Parent joint
+            v2 = joint[[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
+                        12, 13, 14, 15, 16, 17, 18, 19, 20], :2]  # Child joint
+            v = v2 - v1  # [20, 3]
             # Normalize v
             v = v / np.linalg.norm(v, axis=1)[:, np.newaxis]
 
             # Get angle using arcos of dot product
-            angle = np.arccos(np.einsum('nt,nt->n',
-                v[[0,1,2,4,5,6,8,9,10,12,13,14,16,17,18],:], 
-                v[[1,2,3,5,6,7,9,10,11,13,14,15,17,18,19],:])) # [15,]
+            angle = np.arccos(np.einsum(
+                'nt,nt->n',
+                v[[0, 1, 2, 4, 5, 6, 8, 9, 10, 12, 13, 14, 16, 17, 18], :],
+                v[[1, 2, 3, 5, 6, 7, 9, 10, 11, 13, 14, 15, 17, 18, 19], :]
+                ))  # [15,]
 
-            angle = np.degrees(angle) # Convert radian to degree
+            angle = np.degrees(angle)  # Convert radian to degree
 
             angle_label = np.array(angle, dtype=np.float32)
 
@@ -85,7 +85,7 @@ while cap.isOpened():
             # data_arr.extend(joint.flatten())
 
             mp_drawing.draw_landmarks(img, res, mp_hands.HAND_CONNECTIONS)
-            
+
         if len(data_arr) == 78:
             handedness_dict = MessageToDict(result.multi_handedness[0])
             if handedness_dict['classification'][0]['label'] == 'Right':
@@ -94,21 +94,21 @@ while cap.isOpened():
                 data_arr = np.concatenate((data_arr, zero))
         elif len(data_arr) > 156:
             continue
-            
+
         seq.append(data_arr)
-        
+
         if len(seq) < seq_length:
             continue
-            
-        input_data = np.expand_dims(np.array(seq[-seq_length:], dtype=np.float32), axis=0)
+
+        input_data = np.expand_dims(np.array(seq[-seq_length:],
+                                             dtype=np.float32), axis=0)
         y_pred = model.predict(input_data).squeeze()
         i_pred = int(np.argmax(y_pred))
         conf = y_pred[i_pred]
-        
+
         if conf < 0.7:
             continue
-            
-        
+
         action = actions[i_pred]
         print(action)
         action_seq.append(action)
@@ -117,19 +117,16 @@ while cap.isOpened():
         this_action = '?'
         if action_seq[-1] == action_seq[-2] == action_seq[-3]:
             this_action = action
-            
-        # cv2.putText(img, f'{this_action.upper()}', org=(int(res.landmark[0].x * img.shape[1]), int(res.landmark[0].y * img.shape[0] + 20)), fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=1, color=(255, 255, 255), thickness=2)
+
         font = ImageFont.truetype("fonts/gulim.ttc", 20)
         img = Image.fromarray(img)
         draw = ImageDraw.Draw(img)
-        draw.text((30,50), this_action, font=font, fill=(0,0,255))
+        draw.text((30, 50), this_action, font=font, fill=(0, 0, 255))
         img = np.array(img)
 
-    # out.write(img0)
-    # out2.write(img)
     cv2.imshow('img', img)
     if cv2.waitKey(1) == ord('q'):
         break
-    
+
 cv2.destroyAllWindows()
 cap.release()
