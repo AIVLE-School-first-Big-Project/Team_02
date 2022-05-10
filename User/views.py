@@ -79,7 +79,7 @@ def delete(request, username):
      context['password_form'] = form
      return render(request, "../templates/User/delete.html", context)
 
-def update(request):
+def update(request, username):
      context = {}
      if request.method == 'POST':
           form = UpdateForm(request.POST, instance=request.user)
