@@ -118,13 +118,13 @@ if __name__ == "__main__":
              'ㅐ', '', 'ㅂ', 'ㅏ', 'ㄹ', 'ㄷ', 'ㅚ', 'ㄴ', ' ', 'ㅍ',
              'ㅐ', '', 'ㅋ', 'ㅣ', '', 'ㅈ', 'ㅣ', '', 'ㅇ', 'ㅣ',
              'ㅂ', 'ㄴ', 'ㅣ', '', 'ㄷ', 'ㅏ', '', '.']
-    l = []
+    compose_l = []
     for c in decom:
         if(c == ''):
             continue
-        l.append(c)
-    print(l)
-    text = Compose(l)
+        compose_l.append(c)
+    print(compose_l)
+    text = Compose(compose_l)
     print(text)
 else:
     from .Alphabets import HEAD, TAIL, BODY,\
