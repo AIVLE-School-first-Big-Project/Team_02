@@ -62,7 +62,7 @@ ROOT_URLCONF = 'Team_02.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -83,10 +83,6 @@ WSGI_APPLICATION = 'Team_02.wsgi.application'
 
 DATABASES = {
     'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'db.sqlite3',
-    # },
-    # 'custom' : {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'aivle02',
         'USER': 'aivle02',
@@ -94,18 +90,18 @@ DATABASES = {
         'HOST': 'aivle02.cjvizcak2lyh.us-west-1.rds.amazonaws.com',
         'PORT': '3306',
         'OPTIONS': {
-        'init_command' : "SET sql_mode='STRICT_TRANS_TABLES'",
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+            }
         }
     }
-}
 
-EMAIL_BACKEND       = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_USE_TLS       = True
-EMAIL_PORT          = 587
-EMAIL_HOST          = 'smtp.gmail.com'
-EMAIL_HOST_USER     = 'gmlwlswldbs1@gmail.com'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'gmlwlswldbs1@gmail.com'
 EMAIL_HOST_PASSWORD = 'aivle02!'
-SERVER_EMAIL        = 'gmlwlswldbs1'
+SERVER_EMAIL = 'gmlwlswldbs1'
 
 
 # Password validation
@@ -146,9 +142,7 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
-) 
-
-
+)
 
 MEDIA_URL = '/media/'
 
