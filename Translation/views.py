@@ -60,7 +60,7 @@ def braille(text):
                 display.append(f'nums/{syllable}')
             else:
                 display.append(f'{dict[idx%3]}/{syllable}')
-    height_num = len(display) // 10 + 1
+    height_num = len(display) // 10
     result_width, result_height = 10 * 164, 231 * height_num
     result = Image.new("RGBA", (result_width, result_height))
     for idx, b in enumerate(display):
@@ -94,15 +94,18 @@ def textlanguage2_trans(request):
         context = {'img_path': text}
         return JsonResponse(context)
 
-# 웹 스트리밍 부분 -- 
+
+# 웹 스트리밍 부분 --
 class VideoCamera(object):
 
     def __init__(self):
         self.video = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+
     # 카메라 정지
     def __del__(self):
         self.video.release()
         return
+
     # 영상을 jpg 바이너리로 변환하여 리턴
     def get_frame(self, model, actions, seq_length, mp_hands, mp_drawing, hands, seq):
         global translated_sentence
