@@ -13,7 +13,7 @@
  서로 다른 언어를 사용하고 있어도 허물없이 대화할 수 있도록 도움을 주는 서비스
  ```
 <div align="center"> 
- <img src="/img/img4.jpg"  width="600" height="450">
+ <img src="/img/img4.jpg"  width="600" height="400">
 </div>
 <br/>
 <br/>
