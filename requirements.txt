@@ -9,7 +9,7 @@ appdirs==1.4.4
 argh==0.26.2
 argon2-cffi @ file:///C:/ci/argon2-cffi_1613037959010/work
 asn1crypto @ file:///tmp/build/80754af9/asn1crypto_1596577642040/work
-astroid @ file:///C:/ci/astroid_1613501047216/work
+astroid==2.6.6
 astropy @ file:///C:/ci/astropy_1617745647203/work
 astunparse==1.6.3
 async-generator @ file:///home/ktietz/src/ci/async_generator_1611927993394/work
@@ -75,6 +75,7 @@ flatbuffers==2.0
 fsspec @ file:///tmp/build/80754af9/fsspec_1617959894824/work
 future==0.18.2
 gast==0.5.3
+gensim==4.1.2
 geohash2==1.1
 gevent @ file:///C:/ci/gevent_1616773090559/work
 glob2 @ file:///home/linux1/recipes/ci/glob2_1610991677669/work
@@ -88,6 +89,7 @@ gTTS==2.2.4
 h11==0.13.0
 h2==3.2.0
 h5py==2.10.0
+Hanguel==0.0.0.6
 HeapDict==1.0.1
 hpack==3.0.0
 html5lib @ file:///tmp/build/80754af9/html5lib_1593446221756/work
@@ -142,6 +144,7 @@ Markdown==3.3.6
 MarkupSafe==1.1.1
 matplotlib @ file:///C:/ci/matplotlib-suite_1613408055530/work
 mccabe==0.6.1
+mediapipe==0.8.9.1
 menuinst==1.4.16
 missingno==0.5.0
 mistune==0.8.4
@@ -171,6 +174,7 @@ numpy==1.22.3
 numpydoc @ file:///tmp/build/80754af9/numpydoc_1605117425582/work
 oauthlib==3.2.0
 olefile==0.46
+opencv-contrib-python==4.5.5.64
 opencv-python==4.5.5.64
 openpyxl @ file:///tmp/build/80754af9/openpyxl_1615411699337/work
 opt-einsum==3.3.0
@@ -204,7 +208,7 @@ ptyprocess @ file:///tmp/build/80754af9/ptyprocess_1609355006118/work/dist/ptypr
 py @ file:///tmp/build/80754af9/py_1607971587848/work
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
-pycodestyle @ file:///home/ktietz/src/ci_mi/pycodestyle_1612807597675/work
+pycodestyle==2.7.0
 pycosat==0.6.3
 pycparser @ file:///tmp/build/80754af9/pycparser_1594388511720/work
 pycurl==7.43.0.6
@@ -212,7 +216,7 @@ PyDispatcher==2.0.5
 pydocstyle @ file:///tmp/build/80754af9/pydocstyle_1616182067796/work
 pydot==1.4.2
 pyerfa @ file:///C:/ci/pyerfa_1619391071834/work
-pyflakes @ file:///home/ktietz/src/ci_ipy2/pyflakes_1612551159640/work
+pyflakes==2.3.1
 Pygments @ file:///tmp/build/80754af9/pygments_1615143339740/work
 pylint @ file:///C:/ci/pylint_1617136058775/work
 pyls-black @ file:///tmp/build/80754af9/pyls-black_1607553132291/work
@@ -260,6 +264,7 @@ simplegeneric==0.8.1
 singledispatch @ file:///tmp/build/80754af9/singledispatch_1614366001199/work
 sip==4.19.13
 six @ file:///C:/ci/six_1605187374963/work
+smart-open==6.0.0
 sniffio @ file:///C:/ci/sniffio_1614030707456/work
 snowballstemmer @ file:///tmp/build/80754af9/snowballstemmer_1611258885636/work
 sortedcollections @ file:///tmp/build/80754af9/sortedcollections_1611172717284/work
