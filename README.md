@@ -58,7 +58,7 @@
 <br/>
 
 -------
-#### translation_model_test_app : https://github.com/cahyeonc/bpj
+#### translation_model_test : https://github.com/cahyeonc/bpj
 
 
 ### 사용기술
